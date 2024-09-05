@@ -1,0 +1,39 @@
+{
+  "name": "repair.airtech",
+  "version": "1.1.0",
+  "description": "\"repair airtech project\"",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sardorbek-jurakulov/repair.airtech_v1.1.0.git"
+  },
+  "keywords": [
+    "repair",
+    "airtech"
+  ],
+  "author": "Sardorbek Jurakulov +998946110464 @turoniy",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sardorbek-jurakulov/repair.airtech_v1.1.0/issues"
+  },
+  "homepage": "https://github.com/sardorbek-jurakulov/repair.airtech_v1.1.0#readme",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "cookie-parser": "^1.4.6",
+    "dotenv": "^16.4.5",
+    "ejs": "^3.1.10",
+    "exceljs": "^4.4.0",
+    "express": "^4.19.2",
+    "jsonwebtoken": "^9.0.2",
+    "multer": "^1.4.5-lts.1",
+    "pg": "^8.11.5",
+    "xlsx": "^0.18.5"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
+  }
+}
