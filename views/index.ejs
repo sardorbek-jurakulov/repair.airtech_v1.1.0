@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="/css/normalize.css">
+  <link rel="stylesheet" type="text/css" href="/css/main.css">
+  <link rel="icon" type="image/x-icon" href="/images/logo.png">
+  <title>repair.airtech.lan</title>
+</head>
+<body class="page-body">
+
+  <!--------------------------- HEADER ------------------------->
+  <header class="header">
+    <div class="page-container header-container">
+      <div class="user-info-wrapper-in-site-header">
+        <div class="avatar-icon-box"></div>
+        <p class="username"><%= currentUser.full_name %></p>
+      </div>
+      <div class="logo-language-info-wrapper">
+        <select
+          name="languageSelector"
+          id="languageSelector"
+          class="language-selector"
+          onchange="changeLanguage()"
+        >
+          <option
+            value="en"
+            <%= (selectedLanguage === 'en') ? 'selected' : '' %>
+          >
+            English
+          </option>
+          <option
+            value="ru"
+            <%= (selectedLanguage === 'ru') ? 'selected' : '' %>
+          >
+            Русский
+          </option>
+        </select>
+        <a class="factory-icon-link" href="http://repair.airtech.lan" target="_self"></a>
+      </div>
+    </div>
+  </header>
+
+  <!--------------------------- SECTION ------------------------->
+  <section class="page-center-section">
+    <div class="page-center-section-elements-wrapper">
+
+      <!------------------------ ASIDE ------------------------->
+      <aside class="page-aside">
+        <div class="section-change-buttons-wrapper">
+          <% if (currentUser.role === 'admin' || currentUser.role === 'moderator') { %>
+            <a
+              class="
+                section-change-button
+                <%= selectedSection === 'addAirplaneForRepair' ? 'section-change-button-selected' : '' %>
+              "
+              href="http://repair.airtech.lan/airplaneForm/addAirplane/-1"
+              target="_self"
+            ><%= userTexts.addAirplaneButtonInAside[selectedLanguage] %></a>
+          <% } %>
+
+          <a
+            class="
+              section-change-button
+              <%= selectedSection === 'repairingAirplanes' ? 'section-change-button-selected' : '' %>
+            "
+            href="http://repair.airtech.lan/airplanes/continuing"
+            target="_self"
+          ><%= userTexts.repairingAirplanesButtonInAside[selectedLanguage] %></a>
+
+          <a
+            class="
+              section-change-button
+              <%= selectedSection === 'repairedAirplanes' ? 'section-change-button-selected' : '' %>
+            "
+            href="http://repair.airtech.lan/airplanes/completed"
+            target="_self"
+          ><%= userTexts.repairedAirplanesButtonInAside[selectedLanguage] %></a>
+
+          <% if (currentUser.role === 'admin') { %>
+            <a
+              class="
+                section-change-button
+                <%= selectedSection === 'users' ? 'section-change-button-selected' : '' %>
+              "
+              href="http://repair.airtech.lan/users"
+              target="_self"
+            ><%= userTexts.usersButtonInAside[selectedLanguage] %></a>
+          <% } %>
+        </div>
+        <a
+          class="section-change-button logout-button"
+          href="http://repair.airtech.lan/logout"
+          target="_self"
+        ><%= userTexts.exitButtonInAside[selectedLanguage] %></a>
+      </aside>
+      <main class="page-main">
+
+        <!-------------------------- WITHOUT INFO ----------------------->
+        <% if (pageType === 'home') { %>
+          <%- include('withoutInfo.ejs') -%>
+        <% } else if (pageType === 'airplaneForm') { %>
+
+          <!------------------------ AIRPLANE FORM ----------------------->
+          <%- include('airplaneForm.ejs') -%>
+        <% } else if (pageType === 'airplanes') { %>
+
+          <!------------------------ ALL AIRPLANES ------------------------->
+          <%- include('airplanes.ejs') -%>
+        <% } else if (pageType === 'oneAirplane') { %>
+
+          <!------------------------ ONE AIRPLANE ------------------------->
+          <%- include('oneAirplane.ejs') -%>
+        <% } else if (pageType === 'spareForm') { %>
+
+          <!------------------------------ SPARE FORM ------------------------------->
+          <%- include('spareForm.ejs') -%>
+        <% } else if (pageType === 'users') { %>
+
+          <!--------------------------------- USERS --------------------------------->
+          <%- include('users.ejs') -%>
+        <% } else if (pageType === 'userForm') { %>
+
+          <!------------------------------- USERS FORM ------------------------------>
+          <%- include('userForm.ejs') -%>
+        <% } %>
+      </main>
+    </div>
+  </section>
+
+  <!------------------------------- FOOTER ------------------------------------>
+  <footer class="footer">
+    <div class="page-container footer-container">
+      <p>&copy; <%= userTexts.rightsTextInFooter[selectedLanguage] %></p>
+      <p><%= userTexts.companyInfoTextInFooter[selectedLanguage] %></p>
+    </div>
+  </footer>
+
+  <!------------------------------- SCRIPTS ------------------------------------>
+  <script src="/scripts/helper-scripts.js"></script>
+  <script>
+    async function changeLanguage() {
+      let elLanguageSelector = document.getElementById('languageSelector').value;
+      await fetch(`/changeLanguage/${elLanguageSelector}`, {method: 'POST'});
+      window.location.reload();
+    }
+
+    function filterAirplanes() {
+      let insertedSerialNumber = document.getElementById('searchingInputBySerialNumber').value.toUpperCase();
+      let insertedDate = document.getElementById('searchingInputByRegistrationDate').value;
+      if (insertedDate !== '') {
+        insertedDate = new Date(insertedDate).toLocaleDateString();
+      }
+      const airplanesRows = document.getElementById('airplanesTable').getElementsByTagName("tbody")[0].getElementsByTagName("tr");
+      const airplanesRowsCount = airplanesRows.length;
+      if (insertedSerialNumber === '' && insertedDate === '') {
+        for(let i = 0; i < airplanesRowsCount; i++ ) {
+          airplanesRows[i].style.display = "";
+        }
+      } else if (insertedSerialNumber !== '' && insertedDate !== '') {
+        for(let i = 0; i < airplanesRowsCount; i++ ) {
+          let tdSerialNumber = airplanesRows[i].getElementsByClassName('td-serial-number')[0];
+          let tdRegistrationDate = airplanesRows[i].getElementsByClassName('td-registration-date')[0];
+          let serialNumber = tdSerialNumber.textContent || tdSerialNumber.innerText;
+          let registrationDate = tdRegistrationDate.textContent || tdRegistrationDate.innerText;
+          if (
+            serialNumber.toUpperCase().indexOf(insertedSerialNumber) > -1 &&
+            registrationDate.indexOf(insertedDate) > -1
+          ) {
+            airplanesRows[i].style.display = "";
+          } else {
+            airplanesRows[i].style.display = "none";
+          }
+        }
+      } else if (insertedSerialNumber !== '' && insertedDate === '') {
+        for(let i = 0; i < airplanesRowsCount; i++ ) {
+          let td = airplanesRows[i].getElementsByClassName('td-serial-number')[0];
+          let serialNumber = td.textContent || td.innerText;
+          if (serialNumber.toUpperCase().indexOf(insertedSerialNumber) > -1) {
+            airplanesRows[i].style.display = "";
+          } else {
+            airplanesRows[i].style.display = "none";
+          }
+        }
+      } else if (insertedSerialNumber === '' && insertedDate !== '') {
+        for(let i = 0; i < airplanesRowsCount; i++ ) {
+          let td = airplanesRows[i].getElementsByClassName('td-registration-date')[0];
+          let registrationDate = td.textContent || td.innerText;
+          if (registrationDate.indexOf(insertedDate) > -1) {
+            airplanesRows[i].style.display = "";
+          } else {
+            airplanesRows[i].style.display = "none";
+          }
+        }
+      }
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,377 @@
+<div class="spare-form-wrapper">
+  <h2 class="spare-form-title">
+    <% if (formFor === 'addSpare') { %>
+       <%= userTexts.addSpareFormTitle[selectedLanguage] + ' ' + airplane.serialNumber %>
+    <% } else if (formFor === 'editSpare') { %>
+      Edit spare of the <%= airplane.serialNumber %>
+    <% } %>
+  </h2>
+  <form
+    method="POST"
+    action="http://repair.airtech.lan/spare"
+    class="spare-form"
+  >
+    <% if (formFor === 'addSpare') { %>
+      <input type="hidden" name="_method" value="POST">
+    <% } else if (formFor === 'editSpare') { %>
+      <input type="hidden" name="_method" value="PUT">
+      <input type="hidden" name="id" value="<%= spare.id %>">
+    <% } %>
+    <input type="hidden" name="_airplane_id" value="<%= airplane.id %>">
+    <input type="hidden" name="_airplane_serial_number" value="<%= airplane.serialNumber %>">
+    <div class="spare-inputs-wrapper">
+        <label for="demandNumber" class="spare-form-label">
+          <%= userTexts.demandNumber[selectedLanguage] %>
+        </label>
+        <input
+          type="text"
+          id="demandNumber"
+          class="
+            spare-form-input
+            <%= (typeof actionResult !== 'undefined' && actionResult.status === 'success') ? 'disabled-input' : '' %>
+          "
+          name="demand_number"
+          required
+          <% if (typeof spare !== 'undefined') { %>
+            value="<%= spare.demand_number %>"
+          <% } %>
+          <%= (typeof actionResult !== 'undefined' && actionResult.status === 'success') ? 'disabled' : '' %>
+        >
+        <label for="dateDd" class="spare-form-label">
+          <%= userTexts.dateDD[selectedLanguage] %>
+        </label>
+        <input
+          type="date"
+          id="dateDd"
+          class="
+            spare-form-input
+            <%= (typeof actionResult !== 'undefined' && actionResult.status === 'success') ? 'disabled-input' : '' %>
+          "
+          name="date_dd"
+          required
+          <% if (typeof spare !== 'undefined') { %>
+            value="<%= new Date(spare.date_dd).toLocaleDateString('en-CA', {timeZone: 'Asia/Tashkent'}) %>"
+          <% } %>
+          <%= (typeof actionResult !== 'undefined' && actionResult.status === 'success') ? 'disabled' : '' %>
+        >
+        <label for="description" class="spare-form-label">
+          <%= userTexts.description[selectedLanguage] %>
+        </label>
+        <input
+          type="text"
+          id="description"
+          class="
+            spare-form-input
+            <%= (typeof actionResult !== 'undefined' && actionResult.status === 'success') ? 'disabled-input' : '' %>
+          "
+          name="description"
+          required
+          <% if (typeof spare !== 'undefined') { %>
+            value="<%= spare.description %>"
+          <% } %>
+          <%= (typeof actionResult !== 'undefined' && actionResult.status === 'success') ? 'disabled' : '' %>
+        >
+        <label for="partNumber" class="spare-form-label">
+          <%= userTexts.partNumber[selectedLanguage] %>
+        </label>
+        <input
+          type="text"
+          id="partNumber"
+          class="
+            spare-form-input
+            <%= (typeof actionResult !== 'undefined' && actionResult.status === 'success') ? 'disabled-input' : '' %>
+          "
+          name="part_number"
+          required
+          <% if (typeof spare !== 'undefined') { %>
+            value="<%= spare.part_number %>"
+          <% } %>
+          <%= (typeof actionResult !== 'undefined' && actionResult.status === 'success') ? 'disabled' : '' %>
+        >
+        <label for="materialType" class="spare-form-label">
+          <%= userTexts.materialType[selectedLanguage] %>
+        </label>
+        <input
+          type="text"
+          id="materialType"
+          class="
+            spare-form-input
+            <%= (typeof actionResult !== 'undefined' && actionResult.status === 'success') ? 'disabled-input' : '' %>
+          "
+          name="material_type"
+          required
+          <% if (typeof spare !== 'undefined') { %>
+            value="<%= spare.material_type %>"
+          <% } %>
+          <%= (typeof actionResult !== 'undefined' && actionResult.status === 'success') ? 'disabled' : '' %>
+        >
+        <label for="orderedQty" class="spare-form-label">
+          <%= userTexts.orderedQTY[selectedLanguage] %>
+        </label>
+        <input
+          type="number"
+          id="orderedQty"
+          class="
+            spare-form-input
+            <%= (typeof actionResult !== 'undefined' && actionResult.status === 'success') ? 'disabled-input' : '' %>
+          "
+          name="ordered_qty"
+          required
+          <% if (typeof spare !== 'undefined') { %>
+            value="<%= spare.ordered_qty %>"
+          <% } %>
+          <%= (typeof actionResult !== 'undefined' && actionResult.status === 'success') ? 'disabled' : '' %>
+        >
+        <label for="unit" class="spare-form-label">
+          <%= userTexts.unit[selectedLanguage] %>
+        </label>
+        <input
+          type="text"
+          id="unit"
+          class="
+            spare-form-input
+            <%= (typeof actionResult !== 'undefined' && actionResult.status === 'success') ? 'disabled-input' : '' %>
+          "
+          name="unit"
+          required
+          <% if (typeof spare !== 'undefined') { %>
+            value="<%= spare.unit %>"
+          <% } %>
+          <%= (typeof actionResult !== 'undefined' && actionResult.status === 'success') ? 'disabled' : '' %>
+        >
+    </div>
+    <div class="spare-inputs-wrapper">
+      <label for="referenceTo" class="spare-form-label">
+        <%= userTexts.referenceTo[selectedLanguage] %>
+      </label>
+      <input
+        type="text"
+        id="referenceTo"
+        class="
+          spare-form-input
+          <%= (typeof actionResult !== 'undefined' && actionResult.status === 'success') ? 'disabled-input' : '' %>
+        "
+        name="reference_to"
+        required
+        <% if (typeof spare !== 'undefined') { %>
+          value="<%= spare.reference_to %>"
+        <% } %>
+        <%= (typeof actionResult !== 'undefined' && actionResult.status === 'success') ? 'disabled' : '' %>
+      >
+      <label for="requestedBy" class="spare-form-label">
+        <%= userTexts.requestedBy[selectedLanguage] %>
+      </label>
+      <input
+        type="text"
+        id="requestedBy"
+        class="
+          spare-form-input
+          <%= (typeof actionResult !== 'undefined' && actionResult.status === 'success') ? 'disabled-input' : '' %>
+        "
+        name="requested_by"
+        required
+        <% if (typeof spare !== 'undefined') { %>
+          value="<%= spare.requested_by %>"
+        <% } %>
+        <%= (typeof actionResult !== 'undefined' && actionResult.status === 'success') ? 'disabled' : '' %>
+      >
+      <label for="engineerPassed" class="spare-form-label">
+        <%= userTexts.engineerPassed[selectedLanguage] %>
+      </label>
+      <input
+        type="text"
+        id="engineerPassed"
+        class="
+          spare-form-input
+          <%= (typeof actionResult !== 'undefined' && actionResult.status === 'success') ? 'disabled-input' : '' %>
+        "
+        name="engineer_passed"
+        required
+        <% if (typeof spare !== 'undefined') { %>
+          value="<%= spare.engineer_passed %>"
+        <% } %>
+        <%= (typeof actionResult !== 'undefined' && actionResult.status === 'success') ? 'disabled' : '' %>
+      >
+      <label for="acceptedByStoreKeeper" class="spare-form-label">
+        <%= userTexts.acceptedByStoreKeeper[selectedLanguage] %>
+      </label>
+      <input
+        type="text"
+        id="acceptedByStoreKeeper"
+        class="
+          spare-form-input
+          <%= (typeof actionResult !== 'undefined' && actionResult.status === 'success') ? 'disabled-input' : '' %>
+        "
+        name="accepted_by_store_keeper"
+        required
+        <% if (typeof spare !== 'undefined') { %>
+          value="<%= spare.accepted_by_store_keeper %>"
+        <% } %>
+        <%= (typeof actionResult !== 'undefined' && actionResult.status === 'success') ? 'disabled' : '' %>
+      >
+      <label for="dateOfReceipt" class="spare-form-label">
+        <%= userTexts.dateOfReceipt[selectedLanguage] %>
+      </label>
+      <input
+        type="date"
+        id="dateOfReceipt"
+        class="
+          spare-form-input
+          <%= (typeof actionResult !== 'undefined' && actionResult.status === 'success') ? 'disabled-input' : '' %>
+        "
+        name="date_of_receipt"
+        required
+        <% if (typeof spare !== 'undefined') { %>
+          value="<%= new Date(spare.date_of_receipt).toLocaleDateString('en-CA', {timeZone: 'Asia/Tashkent'}) %>"
+        <% } %>
+        <%= (typeof actionResult !== 'undefined' && actionResult.status === 'success') ? 'disabled' : '' %>
+      >
+      <label for="quantityOfGoodsAndMaterialsReceipt" class="spare-form-label">
+        <%= userTexts.quantityOfGoodsAndMaterialsReceipt[selectedLanguage] %>
+      </label>
+      <input
+        type="number"
+        id="quantityOfGoodsAndMaterialsReceipt"
+        class="
+          spare-form-input
+          <%= (typeof actionResult !== 'undefined' && actionResult.status === 'success') ? 'disabled-input' : '' %>
+        "
+        name="quantity_of_goods_and_materials_receipt"
+        required
+        <% if (typeof spare !== 'undefined') { %>
+          value="<%= spare.quantity_of_goods_and_materials_receipt %>"
+        <% } %>
+        <%= (typeof actionResult !== 'undefined' && actionResult.status === 'success') ? 'disabled' : '' %>
+      >
+      <label for="expirationDate" class="spare-form-label">
+        <%= userTexts.expirationDate[selectedLanguage] %>
+      </label>
+      <input
+        type="text"
+        id="expirationDate"
+        class="
+          spare-form-input
+          <%= (typeof actionResult !== 'undefined' && actionResult.status === 'success') ? 'disabled-input' : '' %>
+        "
+        name="expiration_date"
+        required
+        <% if (typeof spare !== 'undefined') { %>
+          value="<%= spare.expiration_date %>"
+        <% } %>
+        <%= (typeof actionResult !== 'undefined' && actionResult.status === 'success') ? 'disabled' : '' %>
+      >
+    </div>
+    <div class="spare-inputs-wrapper">
+      <label for="pickedUpBy" class="spare-form-label">
+        <%= userTexts.pickedUpBy[selectedLanguage] %>
+      </label>
+      <input
+        type="text"
+        id="pickedUpBy"
+        class="
+          spare-form-input
+          <%= (typeof actionResult !== 'undefined' && actionResult.status === 'success') ? 'disabled-input' : '' %>
+        "
+        name="picked_up_by"
+        required
+        <% if (typeof spare !== 'undefined') { %>
+          value="<%= spare.picked_up_by %>"
+        <% } %>
+        <%= (typeof actionResult !== 'undefined' && actionResult.status === 'success') ? 'disabled' : '' %>
+      >
+      <label for="issuedOnBoardNumber" class="spare-form-label">
+        <%= userTexts.issuedOnBoardNumber[selectedLanguage] %>
+      </label>
+      <input
+        type="text"
+        id="issuedOnBoardNumber"
+        class="
+          spare-form-input
+          <%= (typeof actionResult !== 'undefined' && actionResult.status === 'success') ? 'disabled-input' : '' %>
+        "
+        name="issued_on_board_number"
+        required
+        <% if (typeof spare !== 'undefined') { %>
+          value="<%= spare.issued_on_board_number %>"
+        <% } %>
+        <%= (typeof actionResult !== 'undefined' && actionResult.status === 'success') ? 'disabled' : '' %>
+      >
+      <label for="passed" class="spare-form-label">
+        <%= userTexts.passed[selectedLanguage] %>
+      </label>
+      <input
+        type="text"
+        id="passed"
+        class="
+          spare-form-input
+          <%= (typeof actionResult !== 'undefined' && actionResult.status === 'success') ? 'disabled-input' : '' %>
+        "
+        name="passed"
+        required
+        <% if (typeof spare !== 'undefined') { %>
+          value="<%= spare.passed %>"
+        <% } %>
+        <%= (typeof actionResult !== 'undefined' && actionResult.status === 'success') ? 'disabled' : '' %>
+      >
+      <label for="quantityOfBalance" class="spare-form-label">
+        <%= userTexts.quantityOfBalance[selectedLanguage] %>
+      </label>
+      <input
+        type="number"
+        id="quantityOfBalance"
+        class="
+          spare-form-input
+          <%= (typeof actionResult !== 'undefined' && actionResult.status === 'success') ? 'disabled-input' : '' %>
+        "
+        name="quantity_of_balance"
+        required
+        <% if (typeof spare !== 'undefined') { %>
+          value="<%= spare.quantity_of_balance %>"
+        <% } %>
+        <%= (typeof actionResult !== 'undefined' && actionResult.status === 'success') ? 'disabled' : '' %>
+      >
+      <label for="rackNumber" class="spare-form-label">
+        <%= userTexts.rackNumber[selectedLanguage] %>
+      </label>
+      <input
+        type="text"
+        id="rackNumber"
+        class="
+          spare-form-input
+          <%= (typeof actionResult !== 'undefined' && actionResult.status === 'success') ? 'disabled-input' : '' %>
+        "
+        name="rack_number"
+        required
+        <% if (typeof spare !== 'undefined') { %>
+          value="<%= spare.rack_number %>"
+        <% } %>
+        <%= (typeof actionResult !== 'undefined' && actionResult.status === 'success') ? 'disabled' : '' %>
+      >
+      <label for="spareFormSubmitButton" class="spare-form-label spare-form-submit-button-label">Submit</label>
+      <input
+        type="submit"
+        id="spareFormSubmitButton"
+        value="<%= userTexts.submit[selectedLanguage] %>"
+        class="
+          spare-form-input
+          spare-form-submit-button
+          <%= (typeof actionResult !== 'undefined' && actionResult.status === 'success') ? 'spare-form-submit-button-disabled' : '' %>
+        "
+        <%= (typeof actionResult !== 'undefined' && actionResult.status === 'success') ? 'disabled' : '' %>
+      >
+    </div>
+  </form>
+  <div class="form-action-result-container">
+    <a
+      href="http://repair.airtech.lan/airplanes/<%= airplane.id %>"
+      class="form-back-to-button"
+    >
+      <%= userTexts.backToAirplaneButton[selectedLanguage] + ' ' + airplane.serialNumber %>
+    </a>
+    <% if (typeof actionResult !== 'undefined') { %>
+      <p class="form-action-result <%= (actionResult.status === 'success' ? 'form-action-result-success' : 'form-action-result-error') %>"><%= actionResult.message %></p>
+    <% } else { %>
+      <p></p>
+    <% } %>
+  </div>
+</div>

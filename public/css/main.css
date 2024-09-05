@@ -1,0 +1,722 @@
+/******************************* GENERAL STYLES **************************/
+
+@font-face {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 400;
+  src: url("/fonts/roboto-v20-latin_cyrillic-regular.woff2") format("woff2"),
+       url("/fonts/roboto-v20-latin_cyrillic-regular.woff") format("woff");
+}
+
+@font-face {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 500;
+  src: url("/fonts/roboto-v20-latin_cyrillic-500.woff2") format("woff2"),
+       url("/fonts/roboto-v20-latin_cyrillic-500.woff") format("woff");
+}
+
+@font-face {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 700;
+  src: url("/fonts/roboto-v20-latin_cyrillic-700.woff2") format("woff2"),
+       url("/fonts/roboto-v20-latin_cyrillic-700.woff") format("woff");
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+html {
+  margin: 0;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  margin: 0 auto;
+  /* font-family: "Roboto", "Arial", sans-serif; */
+}
+
+.page-body {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.page-container {
+  max-width: 1920px;
+  min-width: 512px;
+  margin: 0 auto;
+}
+
+.disabled-input {
+  color: rgba(51, 51, 51, 0.5) !important;
+}
+
+.disabled-input:hover {
+  cursor: not-allowed;
+}
+
+.form-action-result-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 15px;
+  background-color: #2BAE66FF;
+  border-radius: 0px 0px 10px 10px;
+}
+
+.form-action-result {
+  margin: 0px;
+  letter-spacing: 0.4px;
+  font-size: 20px;
+  margin-right: 10px;
+}
+
+.form-action-result-success {
+  color: #FFFFFF;
+}
+
+.form-action-result-error {
+  color: #d64161;
+}
+
+.form-back-to-button {
+  padding: 5px 15px;
+  background-color: #fff;
+  color: #2BAE66FF;
+  text-decoration: none;
+  border-radius: 3px;
+  order: 2;
+  white-space: nowrap;
+}
+
+
+/******************************* HEADER STYLES **************************/
+.header {
+  width: 100%;
+  background-color: #2BAE66FF;
+  padding: 10px 20px;
+}
+
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  color: #FCF6F5FF;
+}
+
+.user-info-wrapper-in-site-header, .logo-language-info-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.avatar-icon-box, .factory-icon-link {
+  width: 50px;
+  height: 50px;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+.avatar-icon-box {
+  background-image: url('/images/avatar.png');
+  background-size: cover;
+}
+
+.language-selector {
+  margin-right: 20px;
+  border-radius: 3px;
+  border: 0px;
+  padding: 5px;
+  color: #2BAE66FF;
+  font-weight: 500;
+  transition: 0.2s;
+  outline: none;
+  letter-spacing: 0.3px;
+}
+
+.factory-icon-link {
+  background-image: url('/images/logo.png');
+  background-size: 40px;
+  background-color: #fff;
+}
+
+.username {
+  margin-left: 10px;
+  font-weight: bold;
+}
+
+/******************************* PAGE CENTER SECTION STYLES **************************/
+.page-center-section {
+  width: 100%;
+  max-height: 100%;
+  background-color: #FCF6F5FF;
+  flex: 1;
+}
+
+.page-center-section-elements-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 1920px;
+  min-width: 512px;
+  height: 100%;
+  margin: 0 auto;
+}
+
+
+/******************************* PAGE ASIDE SECTION STYLES **************************/
+.page-aside {
+  width: 20%;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-top: 1px solid #FCF6F5FF;
+  border-bottom: 1px solid #FCF6F5FF;
+  padding: 20px 15px;
+  background-color: #2BAE66FF;
+}
+
+.section-change-buttons-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.section-change-button {
+  width: 100%;
+  border: 2px solid rgba(252, 246, 245, 0.0);
+  border-radius: 3px;
+  margin-bottom: 15px;
+  text-decoration: none;
+  outline: 0;
+  padding: 10px 3px;
+  background-color: #FCF6F5FF;
+  color: #2BAE66FF;
+  text-align: center;
+  font-size: 18px;
+}
+
+.section-change-button-selected {
+  background-color: #2BAE66FF;
+  color: #FCF6F5FF;
+  border-color: rgba(252, 246, 245, 1);
+}
+
+.logout-button {
+  background-color: #d64161;
+  color: #fff;
+}
+
+
+
+/******************************* PAGE MAIN SECTION STYLES **************************/
+.page-main {
+  display: flex;
+  width: 80%;
+  height: 100%;
+  background-color: #FCF6F5FF;
+  padding: 8px;
+  overflow: scroll;
+}
+
+
+/******************************* WITHOUT INFO SECTION STYLES **************************/
+.without_info {
+  width: 100%;
+  height: 100%;
+  background-color: #FCF6F5FF;
+  background-image: url('/images/logo-for-bg.png');
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: 50%;
+}
+
+
+/*********************** ALL REPAIRING AIRPLANES SECTION STYLES ***********************/
+.airplanes-info-container {
+  width: 100%;
+  height: 80vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.searching-elements-container {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.searching-input {
+  width: 46%;
+  border: 1px solid #333;
+  border-radius: 3px;
+  margin-bottom: 0px;
+  outline: none;
+  background-color: rgb(193, 240, 211);
+  font-size: 15px;
+  color: #333;
+}
+
+.searching-input-text {
+  padding: 8px;
+}
+
+.searching-input-date {
+  padding: 7px;
+}
+
+.searching-button {
+  width: 6%;
+  height: 100%;
+  border: 1px solid #333;
+  border-radius: 3px;
+  background-image: url('/images/search-icon-green.svg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 30px 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(193, 240, 211);
+  outline: none;
+}
+
+.searching-button:hover {
+  cursor: pointer;
+  background-color: rgb(39, 165, 87);
+  background-image: url('/images/search-icon-white.svg');
+}
+
+.airplanes-table, .airplanes-table-header, .airplanes-table-info-header, .airplanes-table-info, .visitor_header, .visitor_info_header, .visitor_info {
+  border: 1px solid #333;
+  border-collapse: collapse;
+  color: #333
+}
+
+.airplanes-table {
+  margin-top: 8px;
+  background-color: rgb(193, 240, 211);
+  font-size: 16px;
+}
+
+.airplanes-table:first-child {
+  margin-top: 0px;
+}
+
+.airplanes-table-header, .airplanes-table-info-header {
+  padding: 10px;
+  text-wrap: nowrap;
+}
+
+.airplanes-table-info {
+  padding: 3px 5px;
+  text-wrap: nowrap;
+}
+
+tbody tr:hover {
+  background-color: rgb(39, 165, 87);
+}
+
+.centered-table-info {
+  text-align: center;
+}
+
+tbody tr:hover td {
+  color: #fff;
+}
+
+tbody tr:hover .view-more-button,
+tbody tr:hover .complete-button,
+tbody tr:hover .edit-button  {
+  border-color: #ffffffff;
+}
+
+.view-more-button, .complete-button, .edit-button {
+  display: block;
+  width: 100%;
+  text-decoration: none;
+  color: #ffffff;
+  padding: 4px;
+  border-radius: 3px;
+  font-weight: 700;
+  border: 1.5px solid #ffffff00;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.view-more-button {
+  background-color: #2BAE66FF;
+}
+
+.complete-button {
+  background-color: #d64161;
+}
+
+.edit-button {
+  /* background-color: #d6d441; */
+  background-color: #ffc107;
+}
+
+.without-info-message {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #2BAE66FF;
+  font-size: 28px;
+  font-weight: 700;
+}
+
+
+/*********************** ONE REPAIRING AIRPLANE SECTION STYLES **********************/
+.one-airplane-additional-buttons-wrapper {
+  display: flex;
+}
+
+.one-airplane-additional-button {
+  width: fit-content;
+  border: 1px solid #333;
+  border-radius: 3px;
+  background-color: rgb(193, 240, 211);
+  padding: 5px 10px;
+  text-decoration: none;
+  color: #333;
+  margin-right: 10px;
+}
+
+.one-airplane-additional-button:hover {
+  background-color: rgb(39, 165, 87);
+  color: #fff;
+}
+
+.modal {
+  display: hidden; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 35vh; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.5); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+  margin: 0 auto;
+  width: 85%;
+  border: 1px solid #888;
+  border-radius: 5px;
+  padding: 20px;
+  background-color: #FCF6F5FF;
+}
+
+/* The Close Button */
+.close {
+  color: #d64161;
+  float: right;
+  font-size: 32px;
+  font-weight: 700;
+}
+
+.close:hover,
+.close:focus {
+  color: #a82440;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.spare-deleting-action-result-message {
+  font-size: 20px;
+  margin: 60px 0px;
+  text-align: center;
+  font-weight: 700;
+}
+
+.spare-deleting-action-result-success-message {
+  color: #2BAE66FF;
+}
+
+.spare-deleting-action-result-error-message {
+  color: #d64161;
+}
+
+
+/******************************* AIRPLANE FORM SECTION STYLES **************************/
+.airplane-form-wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 0px;
+}
+
+.airplane-form-title {
+  text-align: center;
+  padding: 10px 0px;
+  margin: 0px;
+  font-size: 24px;
+  color: #FFF;
+  background-color: #2BAE66FF;
+  border-radius: 10px 10px 0px 0px;
+}
+
+.airplane-form {
+  width: 100%;
+  height: 100%;
+}
+
+.airplane-input-wrappers-container {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  padding-top: 20px;
+}
+
+.airplane-input-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  flex: 0 0 33.33%;
+  padding: 0px 15px;
+}
+
+.airplane-form-label, .spare-form-label {
+  margin-bottom: 5px;
+  color: #2BAE66FF;
+  letter-spacing: 0.3px;
+}
+
+.airplane-form-input {
+  width: 100%;
+  border: 1px solid #2BAE66FF;
+  border-radius: 3px;
+  margin-bottom: 25px;
+  padding: 5px 10px;
+  color: #333;
+  font-weight: 500;
+  transition: 0.2s;
+  outline: none;
+  letter-spacing: 0.3px;
+}
+
+.airplane-form-input:focus {
+  box-shadow: 0px 0px 0.2px 0.3px #2BAE66FF;
+}
+
+.airplane-form-input::placeholder {
+  opacity: 0.5;
+}
+
+.airplane-form-submit-button-label, .spare-form-submit-button-label {
+  color: transparent;
+}
+
+.airplane-form-submit-button, .spare-form-submit-button {
+  background-color: #2BAE66FF;
+  outline: none;
+  color: #fff !important;
+  border-radius: 4px;
+  border: 1px solid #2BAE66FF;
+  letter-spacing: 0.3px;
+  font-size: 100%;
+}
+
+.airplane-form-submit-button:hover, .spare-form-submit-button:hover {
+  cursor: pointer;
+}
+
+.airplane-form-submit-button-disabled, .spare-form-submit-button-disabled {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.airplane-form-submit-button-disabled:hover, .spare-form-submit-button-disabled:hover {
+  cursor: not-allowed;
+}
+
+
+/******************************* SPARE FORM STYLES **************************/
+.spare-form-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.spare-form-title {
+  text-align: center;
+  padding: 10px 0px;
+  margin: 0px;
+  font-size: 24px;
+  color: #FFF;
+  background-color: #2BAE66FF;
+  border-radius: 10px 10px 0px 0px;
+}
+
+.spare-form {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
+  flex-grow: 1;
+  width: 100%;
+  /* height: 100%; */
+  /* height qiymatini flex-grow ni o'rniga ham ishlatish mumkun, ikkalasi bir xil natija beryapti, qaysi biri optimalligini bilolmasdan ikkalasini ham qoldirdim */
+  padding-top: 20px;
+}
+
+/* .spare-inputs-container {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 20px;
+} */
+
+.spare-inputs-wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0px 15px;
+}
+
+.spare-form-input {
+  width: 100%;
+  border: 1px solid #2BAE66FF;
+  border-radius: 3px;
+  margin-bottom: 25px;
+  padding: 5px 10px;
+  color: #333;
+  font-weight: 500;
+  transition: 0.2s;
+  outline: none;
+  letter-spacing: 0.3px;
+  font-size: 14px;
+}
+
+
+/******************************* USER FORM SECTION STYLES **************************/
+.user-form-wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 0px;
+}
+
+.user-form-title {
+  text-align: center;
+  padding: 10px 0px;
+  margin: 0px;
+  font-size: 24px;
+  color: #FFF;
+  background-color: #2BAE66FF;
+  border-radius: 10px 10px 0px 0px;
+}
+
+.user-form {
+  width: 100%;
+  height: 100%;
+}
+
+.user-input-wrappers-container {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  padding-top: 20px;
+}
+
+.user-input-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  flex: 0 0 33.33%;
+  padding: 0px 15px;
+}
+
+.user-form-label, .spare-form-label {
+  margin-bottom: 5px;
+  color: #2BAE66FF;
+  letter-spacing: 0.3px;
+}
+
+.user-form-input {
+  width: 100%;
+  border: 1px solid #2BAE66FF;
+  border-radius: 3px;
+  margin-bottom: 25px;
+  padding: 5px 10px;
+  color: #333;
+  font-weight: 500;
+  transition: 0.2s;
+  outline: none;
+  letter-spacing: 0.3px;
+}
+
+.user-form-input:focus {
+  box-shadow: 0px 0px 0.2px 0.3px #2BAE66FF;
+}
+
+.user-form-input::placeholder {
+  opacity: 0.5;
+}
+
+.user-form-submit-button-label, .spare-form-submit-button-label {
+  color: transparent;
+}
+
+.user-form-submit-button, .spare-form-submit-button {
+  background-color: #2BAE66FF;
+  outline: none;
+  color: #fff !important;
+  border-radius: 4px;
+  border: 1px solid #2BAE66FF;
+  letter-spacing: 0.3px;
+  font-size: 100%;
+}
+
+.user-form-submit-button:hover, .spare-form-submit-button:hover {
+  cursor: pointer;
+}
+
+.user-form-submit-button-disabled, .spare-form-submit-button-disabled {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.user-form-submit-button-disabled:hover, .spare-form-submit-button-disabled:hover {
+  cursor: not-allowed;
+}
+
+
+/******************************* FOOTER SECTION STYLES **************************/
+.footer {
+  width: 100%;
+  background-color: #2BAE66FF;
+  padding: 0px 20px;
+  font-size: 13px;
+}
+
+.footer-container {
+  display: flex;
+  justify-content: space-between;
+  color: #FCF6F5FF;
+}

@@ -1,0 +1,153 @@
+<div class="user-form-wrapper">
+  <h2 class="user-form-title">
+    <% if (formFor === 'addUser') { %>
+      <%= userTexts.addNewUserTitleInUserForm[selectedLanguage] %>
+    <% } else if (formFor === 'editUser') { %>
+      <%= `${userTexts.editUserTitleInUserForm[selectedLanguage]} ${user.full_name}` %>
+    <% } %>
+  </h2>
+  <form
+    method="POST"
+    action="http://repair.airtech.lan/users"
+    class="user-form"
+  >
+    <% if (formFor === 'addUser') { %>
+      <input type="hidden" name="_method" value="POST">
+    <% } else if (formFor === 'editUser') { %>
+      <input type="hidden" name="_method" value="PUT">
+      <input type="hidden" name="id" value="<%= user.id %>">
+    <% } %>
+    <div class="user-input-wrappers-container">
+      <div class="user-input-wrapper">
+        <label for="fullName" class="user-form-label"><%= userTexts.userFullName[selectedLanguage] %></label>
+        <input
+          type="text"
+          id="fullName"
+          class="
+            user-form-input
+            <%= (typeof actionResult !== 'undefined' && actionResult.status === 'success') ? 'disabled-input' : '' %>
+          "
+          name="full_name"
+          required
+          <% if (typeof user !== 'undefined') { %>
+            value="<%= user.full_name %>"
+          <% } %>
+          <%= (typeof actionResult !== 'undefined' && actionResult.status === 'success') ? 'disabled' : '' %>
+        >
+      </div>
+      <div class="user-input-wrapper">
+        <label for="username" class="user-form-label"><%= userTexts.userUsername[selectedLanguage] %></label>
+        <input
+          type="text"
+          id="username"
+          class="
+            user-form-input
+            <%= (typeof actionResult !== 'undefined' && actionResult.status === 'success') ? 'disabled-input' : '' %>
+          "
+          name="username"
+          required
+          <% if (typeof user !== 'undefined') { %>
+            value="<%= user.username %>"
+          <% } %>
+          <%= (typeof actionResult !== 'undefined' && actionResult.status === 'success') ? 'disabled' : '' %>
+        >
+      </div>
+      <div class="user-input-wrapper">
+        <label for="password" class="user-form-label"><%= userTexts.password[selectedLanguage] %></label>
+        <input
+          type="password"
+          id="password"
+          class="
+            user-form-input
+            <%= (typeof actionResult !== 'undefined' && actionResult.status === 'success') ? 'disabled-input' : '' %>
+          "
+          name="password"
+          required
+          <% if (typeof user !== 'undefined') { %>
+            value="<%= user.password %>"
+          <% } %>
+          <%= (typeof actionResult !== 'undefined' && actionResult.status === 'success') ? 'disabled' : '' %>
+        >
+      </div>
+      <div class="user-input-wrapper">
+        <label for="tableNumber" class="user-form-label"><%= userTexts.userTableNumber[selectedLanguage] %></label>
+        <input
+          type="number"
+          id="tableNumber"
+          class="
+            user-form-input
+            <%= (typeof actionResult !== 'undefined' && actionResult.status === 'success') ? 'disabled-input' : '' %>
+          "
+          name="table_number"
+          required
+          <% if (typeof user !== 'undefined') { %>
+            value="<%= user.table_number %>"
+          <% } %>
+          <%= (typeof actionResult !== 'undefined' && actionResult.status === 'success') ? 'disabled' : '' %>
+        >
+      </div>
+      <div class="user-input-wrapper">
+        <label for="role" class="user-form-label"><%= userTexts.userRoleText[selectedLanguage] %></label>
+        <select
+          name="role"
+          id="role"
+          class="
+            user-form-input
+            <%= (typeof actionResult !== 'undefined' && actionResult.status === 'success') ? 'disabled-input' : '' %>
+          "
+          required
+          <%= (typeof actionResult !== 'undefined' && actionResult.status === 'success') ? 'disabled' : '' %>
+        >
+          <option selected="selected" disabled="disabled">
+            <%= userTexts.selectARole[selectedLanguage] %>
+          </option>
+          <option
+            value="admin"
+            <% if (typeof user !== 'undefined') { %>
+              <%= (user.role === 'admin') ? 'selected' : '' %>
+            <% } %>
+          ><%= userTexts.adminRole[selectedLanguage] %></option>
+          <option
+            value="moderator"
+            <% if (typeof user !== 'undefined') { %>
+              <%= (user.role === 'moderator') ? 'selected' : '' %>
+            <% } %>
+          ><%= userTexts.moderatorRole[selectedLanguage] %></option>
+          <option
+            value="user"
+            <% if (typeof user !== 'undefined') { %>
+              <%= (user.role === 'user') ? 'selected' : '' %>
+            <% } %>
+          ><%= userTexts.userRole[selectedLanguage] %></option>
+        </select>
+      </div>
+      <div class="user-input-wrapper">
+        <label for="userFormSubmitButton" class="user-form-label user-form-submit-button-label">Submit</label>
+        <input
+          type="submit"
+          id="userFormSubmitButton"
+          value="<%= userTexts.submit[selectedLanguage] %>"
+          class="
+            user-form-input
+            user-form-submit-button
+            <%= (typeof actionResult !== 'undefined' && actionResult.status === 'success') ? 'spare-form-submit-button-disabled' : '' %>
+          "
+          <%= (typeof actionResult !== 'undefined' && actionResult.status === 'success') ? 'disabled' : '' %>
+        >
+      </div>
+    </div>
+  </form>
+  <div class="form-action-result-container">
+    <a
+      href="http://repair.airtech.lan/users"
+      class="form-back-to-button"
+      >
+      <%= userTexts.goToUsersPage[selectedLanguage] %>
+    </a>
+    <% if (typeof actionResult !== 'undefined') { %>
+      <p class="form-action-result <%= (actionResult.status === 'success' ? 'form-action-result-success' : 'form-action-result-error') %>"><%= actionResult.message %></p>
+    <% } else { %>
+      <p></p>
+    <% } %>
+  </div>
+</div>

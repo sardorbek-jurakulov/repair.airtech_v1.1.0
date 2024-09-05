@@ -1,0 +1,108 @@
+<div class="airplane-form-wrapper">
+  <h2 class="airplane-form-title">
+    <% if (formFor === 'addAirplane') { %>
+      <%= userTexts.addAirplaneFormTitle[selectedLanguage] %>
+    <% } else if (formFor === 'editAirplane') { %>
+      <%= userTexts.editAirplaneFormTitle[selectedLanguage] + ' ' + airplane.serial_number %>
+    <% } else if (formFor === 'deleteAirplane') { %>
+      <%= userTexts.completeAirplaneServiceFormTitle[selectedLanguage] + ' ' + airplane.serial_number %>
+    <% } %>
+  </h2>
+  <form
+    method="POST"
+    action="http://repair.airtech.lan/repairingAirplanes"
+    class="airplane-form"
+  >
+    <% if (formFor === 'addAirplane') { %>
+      <input type="hidden" name="_method" value="POST">
+    <% } else if (formFor === 'editAirplane') { %>
+      <input type="hidden" name="_method" value="PUT">
+      <input type="hidden" name="id" value="<%= airplane.id %>">
+    <% } else if (formFor === 'deleteAirplane') { %>
+      <input type="hidden" name="_method" value="DELETE">
+      <input type="hidden" name="id" value="<%= airplane.id %>">
+    <% } %>
+    <div class="airplane-input-wrappers-container">
+      <div class="airplane-input-wrapper">
+        <label for="serialNumber" class="airplane-form-label"><%= userTexts.serialNumber[selectedLanguage] %></label>
+        <input
+          type="text"
+          id="serialNumber"
+          class="
+            airplane-form-input
+            <%= (typeof actionResult !== 'undefined' && actionResult.status === 'success') ? 'disabled-input' : '' %>
+          "
+          name="serial_number"
+          placeholder="UK32020"
+          required
+          <% if (typeof airplane !== 'undefined') { %>
+            value="<%= airplane.serial_number %>"
+          <% } %>
+          <%= (typeof actionResult !== 'undefined' && actionResult.status === 'success') ? 'disabled' : '' %>
+        >
+      </div>
+      <div class="airplane-input-wrapper">
+        <label for="serviceStartedDate" class="airplane-form-label"><%= userTexts.serviceStartedDate[selectedLanguage] %></label>
+        <input
+          type="date"
+          id="serviceStartedDate"
+          class="
+            airplane-form-input
+            <%= (typeof actionResult !== 'undefined' && actionResult.status === 'success') ? 'disabled-input' : '' %>
+          "
+          name="service_started_date"
+          required
+          <% if (typeof airplane !== 'undefined') { %>
+            value="<%= new Date(airplane.service_started_date).toLocaleDateString("en-CA", {timeZone: "Asia/Tashkent"}) %>"
+          <% } %>
+          <%= (typeof actionResult !== 'undefined' && actionResult.status === 'success') ? 'disabled' : '' %>
+        >
+      </div>
+      <% if (formFor === 'deleteAirplane') { %>
+        <div class="airplane-input-wrapper">
+          <label for="serviceCompletedDate" class="airplane-form-label"><%= userTexts.serviceCompletedDate[selectedLanguage] %></label>
+          <input
+            type="date"
+            id="serviceCompletedDate"
+            name="service_completed_date"
+            class="
+              airplane-form-input
+              <%= (typeof actionResult !== 'undefined' && actionResult.status === 'success') ? 'disabled-input' : '' %>
+            "
+            <% if (typeof airplane !== 'undefined' && typeof actionResult !== 'undefined') { %>
+              value="<%= new Date(airplane.service_completed_date).toLocaleDateString("en-CA", {timeZone: "Asia/Tashkent"}) %>"
+            <% } %>
+            <%= (typeof actionResult !== 'undefined' && actionResult.status === 'success') ? 'disabled' : '' %>
+          >
+        </div>
+      <% } %>
+      <div class="airplane-input-wrapper">
+        <label for="airplaneFormSubmitButton" class="airplane-form-label airplane-form-submit-button-label">Submit</label>
+        <input
+          type="submit"
+          id="airplaneFormSubmitButton"
+          value="<%= userTexts.submit[selectedLanguage] %>"
+          class="
+            airplane-form-input
+            airplane-form-submit-button
+            <%= (typeof actionResult !== 'undefined' && actionResult.status === 'success') ? 'spare-form-submit-button-disabled' : '' %>
+          "
+          <%= (typeof actionResult !== 'undefined' && actionResult.status === 'success') ? 'disabled' : '' %>
+        >
+      </div>
+    </div>
+  </form>
+  <div class="form-action-result-container">
+    <a
+      href="http://repair.airtech.lan/airplanes/continuing"
+      class="form-back-to-button"
+      >
+      <%= userTexts.goToRepairigAirplanesPageinAirplaneForm[selectedLanguage] %>
+    </a>
+    <% if (typeof actionResult !== 'undefined') { %>
+      <p class="form-action-result <%= (actionResult.status === 'success' ? 'form-action-result-success' : 'form-action-result-error') %>"><%= actionResult.message %></p>
+    <% } else { %>
+      <p></p>
+    <% } %>
+  </div>
+</div>

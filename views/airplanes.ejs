@@ -1,0 +1,100 @@
+<div class="airplanes-info-container">
+  <% const airplanesCount = airplanes.length; %>
+  <% if ( airplanesCount > 0 ) { %>
+    <div class="searching-elements-container">
+      <input
+        type="text"
+        class="searching-input searching-input-text"
+        id="searchingInputBySerialNumber"
+        placeholder="<%= userTexts.searchingBySerialNumber[selectedLanguage] %>"
+        title="Enter the airplane serial number to search"
+      >
+      <input
+        type="date"
+        class="searching-input searching-input-date"
+        id="searchingInputByRegistrationDate"
+        title="Enter the airplane registered date to search"
+      >
+      <button
+        class="searching-button"
+        onclick="filterAirplanes()"
+      ></button>
+    </div>
+    <table class="airplanes-table" id="airplanesTable">
+      <thead>
+        <tr>
+          <th
+            class="airplanes-table-header"
+            <% if (currentUser.role === 'admin' || currentUser.role === 'moderator') { %>
+            colspan="<%= (airplaneServiceStatus === 'continuing' ) ? 6 : 7 %>"
+            <% } else { %>
+              colspan="<%= (airplaneServiceStatus === 'continuing' ) ? 4 : 5 %>"
+            <% } %>
+          >
+            <%= (airplaneServiceStatus === 'continuing') ? userTexts.repairingAirplanesTableTitle[selectedLanguage] : userTexts.repairedAirplanesTableTitle[selectedLanguage] %>
+          </th>
+        </tr>
+        <tr>
+          <th class="airplanes-table-info-header">№</th>
+          <th class="airplanes-table-info-header"><%= userTexts.serialNumber[selectedLanguage] %></th>
+          <th class="airplanes-table-info-header"><%= userTexts.serviceStartedDate[selectedLanguage] %></th>
+          <% if (airplaneServiceStatus === 'completed') { %>
+            <th class="airplanes-table-info-header"><%= userTexts.serviceCompletedDate[selectedLanguage] %></th>
+          <% } %>
+          <th
+            class="airplanes-table-info-header"
+            <% if (airplaneServiceStatus === 'continuing' && (currentUser.role === 'admin' || currentUser.role === 'moderator')) { %>
+              colspan="3"
+            <% } %>
+          >
+            <%= (airplaneServiceStatus === 'continuing') ? userTexts.actionButtons[selectedLanguage] : userTexts.actionButton[selectedLanguage] %>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <% let itemOrdinalNumber = 1; %>
+        <% for(let i = 0; i < airplanesCount; i++) { %>
+          <tr>
+            <td class="airplanes-table-info centered-table-info"><%= itemOrdinalNumber++ %></td>
+            <td class="airplanes-table-info td-serial-number"><%= airplanes[i].serial_number %></td>
+            <td class="airplanes-table-info td-registration-date"><%= new Date(airplanes[i].service_started_date).toLocaleDateString("ru-RU", {timeZone: "Asia/Tashkent"}) %></td>
+            <% if (airplaneServiceStatus === 'completed') { %>
+              <td class="airplanes-table-info"><%= new Date(airplanes[i].service_completed_date).toLocaleDateString("ru-RU", {timeZone: "Asia/Tashkent"}) %></td>
+            <% } %>
+            <td class="airplanes-table-info">
+              <a
+                href="http://repair.airtech.lan/airplanes/<%= airplanes[i].id %>"
+                target="_self"
+                class="view-more-button"
+              ><%= userTexts.viewMore[selectedLanguage] %></a>
+            </td>
+            <% if (airplaneServiceStatus === 'continuing' && (currentUser.role === 'admin' || currentUser.role === 'moderator')) { %>
+              <td class="airplanes-table-info">
+                <a
+                  href="http://repair.airtech.lan/airplaneForm/editAirplane/<%= airplanes[i].id %>"
+                  target="_self"
+                  class="edit-button"
+                ><%= userTexts.edit[selectedLanguage] %></a>
+              </td>
+              <td class="airplanes-table-info">
+                <a
+                  href="http://repair.airtech.lan/airplaneForm/deleteAirplane/<%= airplanes[i].id %>"
+                  target="_self"
+                  class="complete-button"
+                ><%= userTexts.complete[selectedLanguage] %></a>
+              </td>
+            <% } %>
+          </tr>
+        <% } %>
+      </tbody>
+    </table>
+  <% } else { %>
+    <p class="without-info-message">
+      <% if (airplaneServiceStatus === 'continuing') { %>
+        There are no airplane under repair
+      <% } else { %>
+        There are no repaired airplane
+      <% } %>
+    </p>
+  <% } %>
+</div>

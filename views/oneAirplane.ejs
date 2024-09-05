@@ -1,0 +1,130 @@
+<div class="airplanes-info-container">
+  <% const sparesCount = airplane.spares.length; %>
+  <div class="one-airplane-additional-buttons-wrapper">
+    <a
+      href="http://repair.airtech.lan/oneAirplane/dataExport/<%= airplane.id %>"
+      class="one-airplane-additional-button"
+      target="_self"
+    >
+      <%= userTexts.oneAirplaneInfoExport[selectedLanguage] %>
+    </a>
+    <% if (false) { %>
+    <a
+      href="http://repair.airtech.lan/oneAirplane/dataImport/<%= airplane.id %>"
+      class="one-airplane-additional-button"
+      target="_self"
+    >
+      <%= userTexts.oneAirplaneInfoImport[selectedLanguage] %>
+    </a>
+    <% } %>
+    <% if (airplane.service_status === 'continuing' && (currentUser.role === 'admin' || currentUser.role === 'moderator')) { %>
+      <a
+        href="http://repair.airtech.lan/spareForm/addSpare/<%= airplane.id %>/<%= airplane.serial_number %>/-1"
+        class="one-airplane-additional-button"
+        target="_self"
+      >
+        <%= userTexts.addNewSpareButton[selectedLanguage] %> <%= airplane.serial_number %>
+      </a>
+    <% } %>
+  </div>
+  <table class="airplanes-table" id="sparesTable">
+    <thead>
+      <tr>
+        <th
+          class="airplanes-table-header"
+          <% if (airplane.service_status === 'continuing' && (currentUser.role === 'admin' || currentUser.role === 'moderator')) { %>
+            colspan="22"
+          <% } else { %>
+            colspan="20"
+          <% } %>
+        >
+          <%= `${userTexts.oneAirplaneTableTitle[selectedLanguage]} ${airplane.serial_number} ( ${new Date(airplane.service_started_date).toLocaleDateString()} - ${(airplane.service_status === 'completed') ? new Date(airplane.service_completed_date).toLocaleDateString() : '' } )` %>
+        </th>
+      </tr>
+      <tr>
+        <th class="airplanes-table-info-header">№</th>
+        <th class="airplanes-table-info-header"><%= userTexts.demandNumber[selectedLanguage] %></th>
+        <th class="airplanes-table-info-header"><%= userTexts.dateDD[selectedLanguage] %></th>
+        <th class="airplanes-table-info-header"><%= userTexts.description[selectedLanguage] %></th>
+        <th class="airplanes-table-info-header"><%= userTexts.partNumber[selectedLanguage] %></th>
+        <th class="airplanes-table-info-header"><%= userTexts.materialType[selectedLanguage] %></th>
+        <th class="airplanes-table-info-header"><%= userTexts.orderedQTY[selectedLanguage] %></th>
+        <th class="airplanes-table-info-header"><%= userTexts.unit[selectedLanguage] %></th>
+        <th class="airplanes-table-info-header"><%= userTexts.referenceTo[selectedLanguage] %></th>
+        <th class="airplanes-table-info-header"><%= userTexts.requestedBy[selectedLanguage] %></th>
+        <th class="airplanes-table-info-header"><%= userTexts.engineerPassed[selectedLanguage] %></th>
+        <th class="airplanes-table-info-header"><%= userTexts.acceptedByStoreKeeper[selectedLanguage] %></th>
+        <th class="airplanes-table-info-header"><%= userTexts.dateOfReceipt[selectedLanguage] %></th>
+        <th class="airplanes-table-info-header"><%= userTexts.quantityOfGoodsAndMaterialsReceipt[selectedLanguage] %></th>
+        <th class="airplanes-table-info-header"><%= userTexts.expirationDate[selectedLanguage] %></th>
+        <th class="airplanes-table-info-header"><%= userTexts.pickedUpBy[selectedLanguage] %></th>
+        <th class="airplanes-table-info-header"><%= userTexts.issuedOnBoardNumber[selectedLanguage] %></th>
+        <th class="airplanes-table-info-header"><%= userTexts.passed[selectedLanguage] %></th>
+        <th class="airplanes-table-info-header"><%= userTexts.quantityOfBalance[selectedLanguage] %></th>
+        <th class="airplanes-table-info-header"><%= userTexts.rackNumber[selectedLanguage] %></th>
+        <% if (airplane.service_status === 'continuing' && (currentUser.role === 'admin' || currentUser.role === 'moderator')) { %>
+          <th class="airplanes-table-info-header" colspan="2"><%= userTexts.actionButtons[selectedLanguage] %></th>
+        <% } %>
+      </tr>
+    </thead>
+    <tbody>
+      <% let itemOrdinalNumber = 1; %>
+      <% for(let i = 0; i < sparesCount; i++) { %>
+        <tr>
+          <td class="airplanes-table-info centered-table-info"><%= itemOrdinalNumber++ %></td>
+          <td class="airplanes-table-info"><%= airplane.spares[i].demand_number %></td>
+          <td class="airplanes-table-info"><%= new Date(airplane.spares[i].date_dd).toLocaleDateString() %></td>
+          <td class="airplanes-table-info"><%= airplane.spares[i].description %></td>
+          <td class="airplanes-table-info"><%= airplane.spares[i].part_number %></td>
+          <td class="airplanes-table-info"><%= airplane.spares[i].material_type %></td>
+          <td class="airplanes-table-info"><%= airplane.spares[i].ordered_qty %></td>
+          <td class="airplanes-table-info"><%= airplane.spares[i].unit %></td>
+          <td class="airplanes-table-info"><%= airplane.spares[i].reference_to %></td>
+          <td class="airplanes-table-info"><%= airplane.spares[i].requested_by %></td>
+          <td class="airplanes-table-info"><%= airplane.spares[i].engineer_passed %></td>
+          <td class="airplanes-table-info"><%= airplane.spares[i].engineer_passed %></td>
+          <td class="airplanes-table-info"><%= new Date(airplane.spares[i].date_of_receipt).toLocaleDateString() %></td>
+          <td class="airplanes-table-info"><%= airplane.spares[i].quantity_of_goods_and_materials_receipt %></td>
+          <td class="airplanes-table-info"><%= airplane.spares[i].expiration_date %></td>
+          <td class="airplanes-table-info"><%= airplane.spares[i].picked_up_by %></td>
+          <td class="airplanes-table-info"><%= airplane.spares[i].issued_on_board_number %></td>
+          <td class="airplanes-table-info"><%= airplane.spares[i].passed %></td>
+          <td class="airplanes-table-info"><%= airplane.spares[i].quantity_of_balance %></td>
+          <td class="airplanes-table-info"><%= airplane.spares[i].rack_number %></td>
+          <% if (airplane.service_status === 'continuing' && (currentUser.role === 'admin' || currentUser.role === 'moderator')) { %>
+            <td class="airplanes-table-info">
+              <a
+                href="http://repair.airtech.lan/spareForm/editSpare/<%= airplane.id %>/<%= airplane.serial_number %>/<%= airplane.spares[i].id %>"
+                target="_self"
+                class="edit-button"
+              ><%= userTexts.edit[selectedLanguage] %></a>
+            </td>
+            <td class="airplanes-table-info">
+              <a
+                href="http://repair.airtech.lan/spareForm/deleteSpare/<%= airplane.id %>/<%= airplane.serial_number %>/<%= airplane.spares[i].id %>"
+                target="_self"
+                class="complete-button"
+                onclick="confirm('<%= userTexts.spareDeletingConfirmText[selectedLanguage] %>') ? showActionResult() : event.preventDefault();"
+              ><%= userTexts.delete[selectedLanguage] %></a>
+            </td>
+          <% } %>
+        </tr>
+      <% } %>
+    </tbody>
+  </table>
+  <% if (actionResult.status !== '' && actionResult.message !== '') { %>
+    <div id="spareDeletingActionResultContainer" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <p
+          class="
+            spare-deleting-action-result-message
+            <%= (actionResult.status === 'success') ? 'spare-deleting-action-result-success-message' : 'spare-deleting-action-result-error-message' %>
+          "
+        >
+          <%= actionResult.message %>
+        </p>
+      </div>
+    </div>
+  <% } %>
+</div>

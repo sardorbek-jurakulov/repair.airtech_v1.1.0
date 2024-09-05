@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="/css/normalize.css">
+  <link rel="stylesheet" type="text/css" href="/css/login.css">
+  <link rel="icon" type="image/x-icon" href="/images/logo.png">
+  <title>repair.airtech.lan</title>
+</head>
+<body class="page_body">
+  <main class="page_main">
+    <h2 class="page_title">Log in to the system "repair.airtech.lan"</h2>
+    <form class="login_form" action="http://repair.airtech.lan/login" method="POST">
+      <input
+        class="data_input"
+        type="text"
+        name="username"
+        id="username"
+        placeholder="Insert your username"
+        value="<%= username %>"
+      >
+      <input
+        class="data_input"
+        type="password"
+        name="password"
+        id="password"
+        placeholder="Insert your password"
+        value="<%= password %>"
+      >
+      <input
+        class="data_input"
+        type="number"
+        name="table_number"
+        id="table_number"
+        placeholder="Insert your table number"
+        value="<%= table_number %>"
+      >
+      <div class="submit_wrapper">
+        <input
+          class="submit_button"
+          type="submit"
+          value="submit"
+        >
+      </div>
+    </form>
+    <% if (error_message) { %>
+      <div>
+        <p class="login_error_message"><%= error_message %></p>
+      </div>
+    <% } %>
+  </main>
+</body>
+</html>

@@ -1,0 +1,72 @@
+<div class="airplanes-info-container">
+  <% const usersCount = users.length; %>
+  <a
+    href="http://repair.airtech.lan/userForm/addUser/-1"
+    class="one-airplane-additional-button"
+    target="_self"
+  >
+    <%= userTexts.addNewUserButton[selectedLanguage] %>
+  </a>
+  <% if ( usersCount > 0 ) { %>
+    <table class="airplanes-table" id="airplanesTable">
+      <thead>
+        <tr>
+          <th class="airplanes-table-header" colspan="6"><%= userTexts.usersTableTitle[selectedLanguage] %></th>
+        </tr>
+        <tr>
+          <th class="airplanes-table-info-header">№</th>
+          <th class="airplanes-table-info-header"><%= userTexts.userFullName[selectedLanguage] %></th>
+          <th class="airplanes-table-info-header"><%= userTexts.userUsername[selectedLanguage] %></th>
+          <th class="airplanes-table-info-header"><%= userTexts.password[selectedLanguage] %></th>
+          <th class="airplanes-table-info-header"><%= userTexts.userTableNumber[selectedLanguage] %></th>
+          <th class="airplanes-table-info-header"><%= userTexts.userRole[selectedLanguage] %></th>
+          <th class="airplanes-table-info-header" colspan="2"><%= userTexts.actionButtons[selectedLanguage] %></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% let itemOrdinalNumber = 1; %>
+        <% for(let i = 0; i < usersCount; i++) { %>
+          <tr>
+            <td class="airplanes-table-info centered-table-info"><%= itemOrdinalNumber++ %></td>
+            <td class="airplanes-table-info td-serial-number"><%= users[i].full_name %></td>
+            <td class="airplanes-table-info td-registration-date"><%= users[i].username %></td>
+            <td class="airplanes-table-info td-registration-date"><%= users[i].password %></td>
+            <td class="airplanes-table-info td-registration-date"><%= users[i].table_number %></td>
+            <td class="airplanes-table-info td-registration-date"><%= users[i].role %></td>
+            <td class="airplanes-table-info">
+              <a
+                href="http://repair.airtech.lan/userForm/editUser/<%= users[i].id %>"
+                target="_self"
+                class="edit-button"
+              ><%= userTexts.edit[selectedLanguage] %></a>
+            </td>
+            <td class="airplanes-table-info">
+              <a
+                href="http://repair.airtech.lan/userForm/deleteUser/<%= users[i].id %>"
+                target="_self"
+                class="complete-button"
+              ><%= userTexts.delete[selectedLanguage] %></a>
+            </td>
+          </tr>
+        <% } %>
+      </tbody>
+    </table>
+    <% if (actionResult.status !== '' && actionResult.message !== '') { %>
+      <div id="spareDeletingActionResultContainer" class="modal">
+        <div class="modal-content">
+          <span class="close">&times;</span>
+          <p
+            class="
+              spare-deleting-action-result-message
+              <%= (actionResult.status === 'success') ? 'spare-deleting-action-result-success-message' : 'spare-deleting-action-result-error-message' %>
+            "
+          >
+            <%= actionResult.message %>
+          </p>
+        </div>
+      </div>
+    <% } %>
+  <% } else { %>
+    <p class="without-info-message">There are no users yet</p>
+  <% } %>
+</div>
