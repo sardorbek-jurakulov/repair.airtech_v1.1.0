@@ -9,13 +9,13 @@ CREATE DATABASE repair_airtech;
 
 CREATE TABLE types_of_aircraft (
   id BIGSERIAL NOT NULL PRIMARY KEY,
-  type_name VARCHAR(50) NOT NULL UNIQUE,
+  type_name VARCHAR(50) NOT NULL UNIQUE
 );
 
 INSERT INTO types_of_aircraft (
   type_name
   )
-VALUES (
+VALUES
   ('Boeing787-8'),
   ('Boeing787-8P'),
   ('Boeing757-200'),
@@ -35,13 +35,14 @@ CREATE TABLE registration_numbers_of_aircraft (
 );
 
 INSERT INTO types_of_aircraft (
-  type_name
+  types_of_aircraft_id
+  registration_number
+  customer_type_id
   )
 VALUES (
-  'Boing787-8',
-  'B787-8P',
-  '2023-09-01',
-  'completed'
+  1,
+  'UK78701',
+  1
 );
 
 CREATE TABLE customer_type (
