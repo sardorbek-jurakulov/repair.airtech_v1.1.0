@@ -6,35 +6,32 @@ SHOW TIMEZONE;
 CREATE DATABASE repair_airtech;
 
 ------------------------------- AIRPLANES TABLE QUERIES -------------------------------
-CREATE TABLE airplanes (
-  id BIGSERIAL NOT NULL PRIMARY KEY,
-  serial_number VARCHAR(50) NOT NULL,
-  service_started_date DATE NOT NULL,
-  service_status VARCHAR(20) NOT NULL DEFAULT 'continuing',
-  service_completed_date DATE,
-  info_created_date TIMESTAMP(0) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  info_created_username VARCHAR(50) NOT NULL,
-  info_updated_date TIMESTAMP(0) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  info_updated_username VARCHAR(50) NOT NULL
-);
 
 CREATE TABLE types_of_aircraft {
   id BIGSERIAL NOT NULL PRIMARY KEY,
-  name VARCHAR(50) NOT NULL UNIQUE,
+  type_name VARCHAR(50) NOT NULL UNIQUE,
 }
 
-CREATE TABLE aircrafts (
+CREATE TABLE registration_numbers_of_aircraft (
   id BIGSERIAL NOT NULL PRIMARY KEY,
-  aircraft_number VARCHAR(50) NOT NULL,
+  types_of_aircraft_id BIGINT REFERENCES types_of_aircraft(id),
+  registration_number VARCHAR(50) NOT NULL,
+  customer_type_id BIGINT REFERENCES customer_type(id)
+);
+
+CREATE TABLE customer_type (
+  id BIGSERIAL NOT NULL PRIMARY KEY,
+  type_name VARCHAR(50) NOT NULL
 );
 
 CREATE TABLE servicing (
   id BIGSERIAL NOT NULL PRIMARY KEY,
-  airplane_number VARCHAR(50) NOT NULL,
+  registration_numbers_of_aircraft_id BIGINT REFERENCES registration_numbers_of_aircraft(id),,
   service_starting_date DATE NOT NULL,
-  service_status VARCHAR(20) NOT NULL DEFAULT 'continuing',
+  servicing_status VARCHAR(20) NOT NULL DEFAULT 'in process',
   service_completing_date DATE,
 );
+-- service_status: 'in process' / 'completed'
 
 
 CREATE TABLE services (
@@ -42,18 +39,6 @@ CREATE TABLE services (
 
 );
 
--- нормативные документы на форму
--- regulatory documents on the form
-CREATE TABLE regulatory_documents_on_the_form (
-  id BIGSERIAL NOT NULL PRIMARY KEY,
-
-  regulatory_document_number NUMERIC NOT NULL,
-  description VARCHAR(300) NOT NULL,
-  part_number VARCHAR(100) NOT NULL,
-  quantity NUMERIC NOT NULL,
-
-);
--- service_status: 'continuing' / 'completed'
 
 INSERT INTO airplanes (
   serial_number,
