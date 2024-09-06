@@ -17,6 +17,42 @@ CREATE TABLE airplanes (
   info_updated_date TIMESTAMP(0) NOT NULL DEFAULT CURRENT_TIMESTAMP,
   info_updated_username VARCHAR(50) NOT NULL
 );
+
+CREATE TABLE types_of_aircraft {
+  id BIGSERIAL NOT NULL PRIMARY KEY,
+  name VARCHAR(50) NOT NULL UNIQUE,
+}
+
+CREATE TABLE aircrafts (
+  id BIGSERIAL NOT NULL PRIMARY KEY,
+  aircraft_number VARCHAR(50) NOT NULL,
+);
+
+CREATE TABLE servicing (
+  id BIGSERIAL NOT NULL PRIMARY KEY,
+  airplane_number VARCHAR(50) NOT NULL,
+  service_starting_date DATE NOT NULL,
+  service_status VARCHAR(20) NOT NULL DEFAULT 'continuing',
+  service_completing_date DATE,
+);
+
+
+CREATE TABLE services (
+  id BIGSERIAL NOT NULL PRIMARY KEY,
+
+);
+
+-- нормативные документы на форму
+-- regulatory documents on the form
+CREATE TABLE regulatory_documents_on_the_form (
+  id BIGSERIAL NOT NULL PRIMARY KEY,
+
+  regulatory_document_number NUMERIC NOT NULL,
+  description VARCHAR(300) NOT NULL,
+  part_number VARCHAR(100) NOT NULL,
+  quantity NUMERIC NOT NULL,
+
+);
 -- service_status: 'continuing' / 'completed'
 
 INSERT INTO airplanes (
@@ -118,7 +154,7 @@ CREATE TABLE users (
   table_number NUMERIC NOT NULL,
   role VARCHAR(50) NOT NULL,
   login_status VARCHAR(15) NOT NULL DEFAULT 'allowed',
-  info_created_date TIMESTAMP(0) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  info_created_date  TIMESTAMP(0) NOT NULL DEFAULT CURRENT_TIMESTAMP,
   info_created_username VARCHAR(50) NOT NULL,
   info_updated_date TIMESTAMP(0) NOT NULL DEFAULT CURRENT_TIMESTAMP,
   info_updated_username VARCHAR(50) NOT NULL
