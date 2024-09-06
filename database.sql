@@ -7,10 +7,25 @@ CREATE DATABASE repair_airtech;
 
 ------------------------------- AIRPLANES TABLE QUERIES -------------------------------
 
-CREATE TABLE types_of_aircraft {
+CREATE TABLE types_of_aircraft (
   id BIGSERIAL NOT NULL PRIMARY KEY,
   type_name VARCHAR(50) NOT NULL UNIQUE,
-}
+);
+
+INSERT INTO types_of_aircraft (
+  type_name
+  )
+VALUES (
+  ('Boeing787-8'),
+  ('Boeing787-8P'),
+  ('Boeing757-200'),
+  ('Boeing757-23P'),
+  ('Boeing767-300'),
+  ('Boeing767-33P'),
+  ('A320-214'),
+  ('A320-000'),
+  ('A320-NEO')
+;
 
 CREATE TABLE registration_numbers_of_aircraft (
   id BIGSERIAL NOT NULL PRIMARY KEY,
@@ -19,10 +34,30 @@ CREATE TABLE registration_numbers_of_aircraft (
   customer_type_id BIGINT REFERENCES customer_type(id)
 );
 
+INSERT INTO types_of_aircraft (
+  type_name
+  )
+VALUES (
+  'Boing787-8',
+  'B787-8P',
+  '2023-09-01',
+  'completed'
+);
+
 CREATE TABLE customer_type (
   id BIGSERIAL NOT NULL PRIMARY KEY,
   type_name VARCHAR(50) NOT NULL
 );
+
+INSERT INTO customer_type (
+  type_name
+  )
+VALUES
+  ( 'Uzbekistan Airways' ),
+  ('Silk Avia'),
+  ('Qanoqshart'),
+  ('Somon Air')
+;
 
 CREATE TABLE servicing (
   id BIGSERIAL NOT NULL PRIMARY KEY,
@@ -33,25 +68,6 @@ CREATE TABLE servicing (
 );
 -- service_status: 'in process' / 'completed'
 
-
-CREATE TABLE services (
-  id BIGSERIAL NOT NULL PRIMARY KEY,
-
-);
-
-
-INSERT INTO airplanes (
-  serial_number,
-  service_started_date,
-  service_completed_date,
-  service_status
-  )
-VALUES (
-  'UK32024',
-  '2023-06-27',
-  '2023-09-01',
-  'completed'
-);
 
 --------------------------------- SPARES TABLE QUERIES ---------------------------------
 CREATE TABLE spares (
