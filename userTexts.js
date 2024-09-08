@@ -83,9 +83,9 @@ const userTexts = {
     'en': 'The operation failed ❌. Reason is:',
     'ru': 'Операция провалилась. ❌. Причина:'
   },
-  searchingBySerialNumber: {
-    'en': 'Searching by serial number',
-    'ru': 'Поиск по серийному номеру'
+  searchingByRegistrationNumber: {
+    'en': 'Searching by registration number',
+    'ru': 'Поиск по регистрационному номеру'
   },
   repairingAirplanesTableTitle: {
     'en': 'List of all airplanes under repair',
