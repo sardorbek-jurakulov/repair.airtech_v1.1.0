@@ -4,16 +4,16 @@ const userTexts = {
     'ru': 'Добавить самолет в ремонт'
   },
   repairingAirplanesButtonInAside: {
-    'en': 'Repairing airplanes',
-    'ru': 'Самолеты в ремонте'
+    'en': 'Servicing aircrafts',
+    'ru': 'Обслуживаемые воздушное судно'
   },
   repairedAirplanesButtonInAside: {
-    'en': 'Repaired airplanes',
-    'ru': 'Отремонтированные самолеты'
+    'en': 'Serviced aircrafts',
+    'ru': 'Обслуживанное воздушное судно'
   },
   usersButtonInAside: {
-    'en': 'Users',
-    'ru': 'Пользователи'
+    'en': 'Platform users',
+    'ru': 'Пользователи платформы'
   },
   exitButtonInAside: {
     'en': 'Exit',
@@ -56,7 +56,7 @@ const userTexts = {
     'ru': 'Дата завершения обслуживания'
   },
   goToRepairigAirplanesPageinAirplaneForm: {
-    'en': 'go to repairing airplanes page',
+    'en': 'Switch to "Servicing aircrafts" page',
     'ru': 'перейти на страницу самолета в ремонте'
   },
   airplaneSuccessfullyAdded: {
