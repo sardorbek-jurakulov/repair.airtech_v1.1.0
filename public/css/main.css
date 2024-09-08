@@ -111,14 +111,14 @@ body {
 }
 
 .add-button {
-  width: 15%;
+  width: fit-content;
   background-color: #4CAF50; /* Green */
   border: none;
   color: white;
   padding: 10px;
   text-align: center;
   text-decoration: none;
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
   font-size: 16px;
