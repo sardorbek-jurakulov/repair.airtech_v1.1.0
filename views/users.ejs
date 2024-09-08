@@ -24,10 +24,10 @@
         </tr>
       </thead>
       <tbody>
-        <% let itemOrdinalNumber = 1; %>
+        <% let itemsOrdinalNumber = 1; %>
         <% for(let i = 0; i < usersCount; i++) { %>
           <tr>
-            <td class="airplanes-table-info centered-table-info"><%= itemOrdinalNumber++ %></td>
+            <td class="airplanes-table-info centered-table-info"><%= itemsOrdinalNumber++ %></td>
             <td class="airplanes-table-info td-serial-number"><%= users[i].full_name %></td>
             <td class="airplanes-table-info td-registration-date"><%= users[i].username %></td>
             <td class="airplanes-table-info td-registration-date"><%= users[i].password %></td>

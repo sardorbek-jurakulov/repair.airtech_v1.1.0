@@ -29,3 +29,11 @@ app.listen(PORT, () => {
 // 5. Tizimda shunday xatolik borki agar bir foydalanuvchi ochib turgan ma'lumotlarni boshqa joydalanuvchi o'chirib yuborsa ochib turgan foydalanuvchiga undefined qiymatlar ketib front'da xatolik chiqib qolishi mumkun. Buni to'g'irlash uchun bazadan olingan qiymatlarni mavjudligini tekshirib keyin front'ga jo'natish kerak yoki ?. belgisidan foydalanish kerak.
 // 6. ko'rsatilgan route'lardan boshqa route'ga murojat qilingandagi holatni handle qilish kerak.
 // 7. spareForm'da currentUser'ning full_name qiymati chiqmayapti.
+
+
+
+// Yangi versiyadagi tuzatishlar:
+// 1. No info tekstlari faqat bitta tilda ekan, ikkita tilli qilib matni ham universal qilib qo'yildi.
+// 2. serchlani stillari adaptivroq qilib to'g'irlab qo'yildi.
+// 3. sektionlani nomlari o'zgartirib qo'yildi.
+// 4. headerda user ismi va avatar orasidagi masofa platforma tili va logosini orasidagi masofa bilan mutanosib qilib qo'yildi.

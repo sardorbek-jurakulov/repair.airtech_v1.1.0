@@ -203,28 +203,34 @@
       }
     }
 
-    /****************************** ADD ROW TO SERVICING AIRPLANES SECTION *****************************/
+    /****************************** ADD ROW TO TABLES *****************************/
     document.addEventListener('DOMContentLoaded', () => {
-    const table = document.getElementById('excelTable');
+    const servicingAirplanesTable = document.getElementById('airplanesTable');
     const addRowToServicingAirplanesTableButton = document.getElementById('addRowToServicingAirplanesTableButton');
-    const addRowButton = document.getElementById('addRowButton');
 
-    addRowButton.addEventListener('click', () => {
-        const tableBody = table.querySelector('tbody');
+    addRowToServicingAirplanesTableButton.addEventListener('click', () => {
+        const tableBody = servicingAirplanesTable.querySelector('tbody');
         const rowCount = tableBody.rows.length + 1; // Calculate new row number
 
         const newRow = tableBody.insertRow(); // Create new row
 
-        // Insert header cell for the row number
+        // Insert items ordinal number
+        const ordinalNumber = newRow.insertCell(0);
+        ordinalNumber.textContent = rowCount;
+        ordinalNumber.className = 'airplanes-table-info centered-table-info';
+
+        // Insert items ordinal number
         const headerCell = newRow.insertCell(0);
         headerCell.textContent = rowCount;
-        headerCell.style.fontWeight = 'bold';
+        headerCell.className = 'airplanes-table-info centered-table-info';
+
+
 
         // Insert new editable cells
-        for (let i = 0; i < 3; i++) {
-            const newCell = newRow.insertCell(i + 1);
-            newCell.contentEditable = "true";
-        }
+        // for (let i = 0; i < 3; i++) {
+        //     const newCell = newRow.insertCell(i + 1);
+        //     newCell.contentEditable = "true";
+        // }
     });
 
     // Handle "Enter" key to move to the next cell

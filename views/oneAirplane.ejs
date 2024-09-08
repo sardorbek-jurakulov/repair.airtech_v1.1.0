@@ -68,10 +68,10 @@
       </tr>
     </thead>
     <tbody>
-      <% let itemOrdinalNumber = 1; %>
+      <% let itemsOrdinalNumber = 1; %>
       <% for(let i = 0; i < sparesCount; i++) { %>
         <tr>
-          <td class="airplanes-table-info centered-table-info"><%= itemOrdinalNumber++ %></td>
+          <td class="airplanes-table-info centered-table-info"><%= itemsOrdinalNumber++ %></td>
           <td class="airplanes-table-info"><%= airplane.spares[i].demand_number %></td>
           <td class="airplanes-table-info"><%= new Date(airplane.spares[i].date_dd).toLocaleDateString() %></td>
           <td class="airplanes-table-info"><%= airplane.spares[i].description %></td>

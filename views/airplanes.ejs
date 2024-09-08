@@ -52,14 +52,14 @@
         </tr>
       </thead>
       <tbody>
-        <% let itemOrdinalNumber = 1; %>
+        <% let itemsOrdinalNumber = 1; %>
         <% for(let i = 0; i < airplanesCount; i++) { %>
           <tr>
-            <td class="airplanes-table-info centered-table-info"><%= itemOrdinalNumber++ %></td>
-            <td class="airplanes-table-info td-serial-number"><%= airplanes[i].serial_number %></td>
-            <td class="airplanes-table-info td-registration-date"><%= new Date(airplanes[i].service_started_date).toLocaleDateString("ru-RU", {timeZone: "Asia/Tashkent"}) %></td>
+            <td class="airplanes-table-info centered-table-info"><%= itemsOrdinalNumber++ %></td>
+            <td class="airplanes-table-info td-serial-number" contenteditable="true"><%= airplanes[i].serial_number %></td>
+            <td class="airplanes-table-info td-registration-date" contenteditable="true"><%= new Date(airplanes[i].service_started_date).toLocaleDateString("ru-RU", {timeZone: "Asia/Tashkent"}) %></td>
             <% if (airplaneServiceStatus === 'completed') { %>
-              <td class="airplanes-table-info"><%= new Date(airplanes[i].service_completed_date).toLocaleDateString("ru-RU", {timeZone: "Asia/Tashkent"}) %></td>
+              <td class="airplanes-table-info" contenteditable="true"><%= new Date(airplanes[i].service_completed_date).toLocaleDateString("ru-RU", {timeZone: "Asia/Tashkent"}) %></td>
             <% } %>
             <td class="airplanes-table-info">
               <a
@@ -88,7 +88,7 @@
         <% } %>
       </tbody>
     </table>
-    <button class="add-button add-row"><span class="add-row-button-span"></span> <%- userTexts.addRowButton[selectedLanguage]%></button>
+    <button class="add-button add-row" id="addRowToServicingAirplanesTableButton"><span class="add-row-button-span"></span> <%- userTexts.addRowButton[selectedLanguage]%></button>
   <% } else { %>
     <p class="without-info-message">
       <%- userTexts.noInfoYetInThisSection[selectedLanguage] %>
