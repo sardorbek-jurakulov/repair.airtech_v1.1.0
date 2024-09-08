@@ -6,31 +6,69 @@ SHOW TIMEZONE;
 CREATE DATABASE repair_airtech;
 
 ------------------------------- AIRPLANES TABLE QUERIES -------------------------------
-CREATE TABLE airplanes (
-  id BIGSERIAL NOT NULL PRIMARY KEY,
-  serial_number VARCHAR(50) NOT NULL,
-  service_started_date DATE NOT NULL,
-  service_status VARCHAR(20) NOT NULL DEFAULT 'continuing',
-  service_completed_date DATE,
-  info_created_date TIMESTAMP(0) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  info_created_username VARCHAR(50) NOT NULL,
-  info_updated_date TIMESTAMP(0) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  info_updated_username VARCHAR(50) NOT NULL
-);
--- service_status: 'continuing' / 'completed'
 
-INSERT INTO airplanes (
-  serial_number,
-  service_started_date,
-  service_completed_date,
-  service_status
+CREATE TABLE types_of_aircraft (
+  id BIGSERIAL NOT NULL PRIMARY KEY,
+  type_name VARCHAR(50) NOT NULL UNIQUE
+);
+
+INSERT INTO types_of_aircraft (
+  type_name
+  )
+VALUES
+  ('Boeing787-8'),
+  ('Boeing787-8P'),
+  ('Boeing757-200'),
+  ('Boeing757-23P'),
+  ('Boeing767-300'),
+  ('Boeing767-33P'),
+  ('A320-214'),
+  ('A320-000'),
+  ('A320-NEO')
+;
+
+CREATE TABLE registration_numbers_of_aircraft (
+  id BIGSERIAL NOT NULL PRIMARY KEY,
+  types_of_aircraft_id BIGINT REFERENCES types_of_aircraft(id),
+  registration_number VARCHAR(50) NOT NULL,
+  customer_type_id BIGINT REFERENCES customer_type(id)
+);
+
+INSERT INTO types_of_aircraft (
+  types_of_aircraft_id
+  registration_number
+  customer_type_id
   )
 VALUES (
-  'UK32024',
-  '2023-06-27',
-  '2023-09-01',
-  'completed'
+  1,
+  'UK78701',
+  1
 );
+
+CREATE TABLE customer_type (
+  id BIGSERIAL NOT NULL PRIMARY KEY,
+  type_name VARCHAR(50) NOT NULL
+);
+
+INSERT INTO customer_type (
+  type_name
+  )
+VALUES
+  ( 'Uzbekistan Airways' ),
+  ('Silk Avia'),
+  ('Qanoqshart'),
+  ('Somon Air')
+;
+
+CREATE TABLE servicing (
+  id BIGSERIAL NOT NULL PRIMARY KEY,
+  registration_numbers_of_aircraft_id BIGINT REFERENCES registration_numbers_of_aircraft(id),,
+  service_starting_date DATE NOT NULL,
+  servicing_status VARCHAR(20) NOT NULL DEFAULT 'in process',
+  service_completing_date DATE,
+);
+-- service_status: 'in process' / 'completed'
+
 
 --------------------------------- SPARES TABLE QUERIES ---------------------------------
 CREATE TABLE spares (
@@ -118,7 +156,7 @@ CREATE TABLE users (
   table_number NUMERIC NOT NULL,
   role VARCHAR(50) NOT NULL,
   login_status VARCHAR(15) NOT NULL DEFAULT 'allowed',
-  info_created_date TIMESTAMP(0) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  info_created_date  TIMESTAMP(0) NOT NULL DEFAULT CURRENT_TIMESTAMP,
   info_created_username VARCHAR(50) NOT NULL,
   info_updated_date TIMESTAMP(0) NOT NULL DEFAULT CURRENT_TIMESTAMP,
   info_updated_username VARCHAR(50) NOT NULL
