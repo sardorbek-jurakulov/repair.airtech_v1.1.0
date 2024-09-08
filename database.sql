@@ -147,3 +147,38 @@ VALUES (
   'sjurakulov',
   'sjurakulov'
 );
+
+
+--------------------------------- ORDER TO ATI QUERIES ---------------------------------
+
+CREATE TABLE order_ati (
+  order_ati_id BIGSERIAL NOT NULL PRIMARY KEY,
+  regulatory_document_number VARCHAR(100) NOT NULL,
+  description VARCHAR(300) NOT NULL,
+  part_number VARCHAR(100) NOT NULL,
+  quantity VARCHAR(100) NOT NULL,
+  location VARCHAR(100) NOT NULL,
+  material_usage_status VARCHAR(30) NOT NULL DEFAULT 'used for airplane',
+  created_date TIMESTAMP(0) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  created_by VARCHAR(50) NOT NULL,
+  updated_date TIMESTAMP(0) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_by VARCHAR(50) NOT NULL
+);
+
+-- material_usage_status = used for airplane / use of the material calcelled
+
+
+--------------------------------- ORDER TO ATI BU UNEXISTING WAREHOUSE QUERIES ---------------------------------
+CREATE TABLE order_ati (
+  order_ati_id BIGSERIAL NOT NULL PRIMARY KEY,
+  regulatory_document_number VARCHAR(100) NOT NULL,
+  description VARCHAR(300) NOT NULL,
+  part_number VARCHAR(100) NOT NULL,
+  quantity VARCHAR(100) NOT NULL,
+  location VARCHAR(100) NOT NULL,
+  material_usage_status VARCHAR(30) NOT NULL DEFAULT 'used for airplane',
+  created_date TIMESTAMP(0) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  created_by VARCHAR(50) NOT NULL,
+  updated_date TIMESTAMP(0) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_by VARCHAR(50) NOT NULL
+);
