@@ -9,7 +9,7 @@ const userTexts = {
   },
   repairedAirplanesButtonInAside: {
     'en': 'Repaired airplanes',
-    'ru': 'Отремонтированный самолеты'
+    'ru': 'Отремонтированные самолеты'
   },
   usersButtonInAside: {
     'en': 'Users',
