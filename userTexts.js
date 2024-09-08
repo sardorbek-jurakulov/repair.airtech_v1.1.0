@@ -123,6 +123,10 @@ const userTexts = {
     'en': 'delete',
     'ru': 'удалить'
   },
+  addRowButton: {
+    'en': 'Add Row',
+    'ru': 'Добавить строку'
+  },
   addNewUserButton: {
     'en': 'add new user',
     'ru': 'добавить нового пользователя'

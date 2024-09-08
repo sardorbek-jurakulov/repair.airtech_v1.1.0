@@ -155,7 +155,9 @@
       if (insertedDate !== '') {
         insertedDate = new Date(insertedDate).toLocaleDateString();
       }
-      const airplanesRows = document.getElementById('airplanesTable').getElementsByTagName("tbody")[0].getElementsByTagName("tr");
+      const airplanesTable = document.getElementById('airplanesTable');
+      const addRowToAirplanesButton = document.getElementById('addRowToAirplanesTableButton');
+      const airplanesRows = airplanesTable.getElementsByTagName("tbody")[0].getElementsByTagName("tr");
       const airplanesRowsCount = airplanesRows.length;
       if (insertedSerialNumber === '' && insertedDate === '') {
         for(let i = 0; i < airplanesRowsCount; i++ ) {

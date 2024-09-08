@@ -99,6 +99,52 @@ body {
   white-space: nowrap;
 }
 
+.add-row-button-span {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  background-image: url('/images/add.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  margin-right: 5px;
+}
+
+.add-button {
+  width: 10%;
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 10px 15px;
+  text-align: center;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  margin-top: 10px;
+  cursor: pointer;
+  border-radius: 5px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.add-button:hover {
+  background-color: #45a049;
+}
+
+.add-button:active {
+  transform: scale(0.98);
+}
+
+.add-row {
+  background-color: #2BAE66FF; /* Blue */
+}
+
+.add-row:hover {
+  background-color: #248f54FF;
+}
+
 
 /******************************* HEADER STYLES **************************/
 .header {
