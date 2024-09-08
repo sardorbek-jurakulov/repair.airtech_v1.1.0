@@ -111,11 +111,11 @@ body {
 }
 
 .add-button {
-  width: 10%;
+  width: 15%;
   background-color: #4CAF50; /* Green */
   border: none;
   color: white;
-  padding: 10px 15px;
+  padding: 10px;
   text-align: center;
   text-decoration: none;
   display: flex;
@@ -288,7 +288,7 @@ body {
   background-image: url('/images/logo-for-bg.png');
   background-position: center center;
   background-repeat: no-repeat;
-  background-size: 50%;
+  background-size: 40%;
 }
 
 
