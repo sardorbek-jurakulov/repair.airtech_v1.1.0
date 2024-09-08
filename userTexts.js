@@ -347,6 +347,10 @@ const userTexts = {
     'en': 'The airplane you selected is not available in the list. Please select an airplane from the list!',
     'ru': 'Выбранного вами самолета нет в списке. Пожалуйста, выберите самолет из списка!'
   },
+  noInfoYetInThisSection: {
+    'en': 'There are no information yet in this section',
+    'ru': 'В этом разделе пока нет информации'
+  }
 };
 
 module.exports = userTexts;

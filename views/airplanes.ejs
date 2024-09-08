@@ -91,11 +91,7 @@
     <button class="add-button add-row"><span class="add-row-button-span"></span> <%- userTexts.addRowButton[selectedLanguage]%></button>
   <% } else { %>
     <p class="without-info-message">
-      <% if (airplaneServiceStatus === 'continuing') { %>
-        There are no airplane under repair
-      <% } else { %>
-        There are no repaired airplane
-      <% } %>
+      <%- userTexts.noInfoYetInThisSection[selectedLanguage] %>
     </p>
   <% } %>
 </div>

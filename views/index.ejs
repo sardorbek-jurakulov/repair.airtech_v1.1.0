@@ -143,12 +143,15 @@
   <!------------------------------- SCRIPTS ------------------------------------>
   <script src="/scripts/helper-scripts.js"></script>
   <script>
+
+    /****************************** CHANGE LANGUAGE *****************************/
     async function changeLanguage() {
       let elLanguageSelector = document.getElementById('languageSelector').value;
       await fetch(`/changeLanguage/${elLanguageSelector}`, {method: 'POST'});
       window.location.reload();
     }
 
+    /****************************** FILTER SERVICING / SERVICED AIRPLANES *****************************/
     function filterAirplanes() {
       let insertedSerialNumber = document.getElementById('searchingInputBySerialNumber').value.toUpperCase();
       let insertedDate = document.getElementById('searchingInputByRegistrationDate').value;
@@ -156,7 +159,6 @@
         insertedDate = new Date(insertedDate).toLocaleDateString();
       }
       const airplanesTable = document.getElementById('airplanesTable');
-      const addRowToAirplanesButton = document.getElementById('addRowToAirplanesTableButton');
       const airplanesRows = airplanesTable.getElementsByTagName("tbody")[0].getElementsByTagName("tr");
       const airplanesRowsCount = airplanesRows.length;
       if (insertedSerialNumber === '' && insertedDate === '') {
@@ -200,6 +202,44 @@
         }
       }
     }
+
+    /****************************** ADD ROW TO SERVICING AIRPLANES SECTION *****************************/
+    document.addEventListener('DOMContentLoaded', () => {
+    const table = document.getElementById('excelTable');
+    const addRowToServicingAirplanesTableButton = document.getElementById('addRowToServicingAirplanesTableButton');
+    const addRowButton = document.getElementById('addRowButton');
+
+    addRowButton.addEventListener('click', () => {
+        const tableBody = table.querySelector('tbody');
+        const rowCount = tableBody.rows.length + 1; // Calculate new row number
+
+        const newRow = tableBody.insertRow(); // Create new row
+
+        // Insert header cell for the row number
+        const headerCell = newRow.insertCell(0);
+        headerCell.textContent = rowCount;
+        headerCell.style.fontWeight = 'bold';
+
+        // Insert new editable cells
+        for (let i = 0; i < 3; i++) {
+            const newCell = newRow.insertCell(i + 1);
+            newCell.contentEditable = "true";
+        }
+    });
+
+    // Handle "Enter" key to move to the next cell
+    table.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter') {
+            event.preventDefault();
+            const currentCell = document.activeElement;
+            const nextRow = currentCell.parentElement.nextElementSibling;
+            if (nextRow) {
+                const nextCell = nextRow.cells[currentCell.cellIndex];
+                nextCell.focus();
+            }
+        }
+    });
+  });
   </script>
 </body>
 </html>
