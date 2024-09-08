@@ -50,6 +50,7 @@
       <!------------------------ ASIDE ------------------------->
       <aside class="page-aside">
         <div class="section-change-buttons-wrapper">
+          <% if (false) { %>
           <% if (currentUser.role === 'admin' || currentUser.role === 'moderator') { %>
             <a
               class="
@@ -59,6 +60,7 @@
               href="http://repair.airtech.lan/airplaneForm/addAirplane/-1"
               target="_self"
             ><%= userTexts.addAirplaneButtonInAside[selectedLanguage] %></a>
+          <% } %>
           <% } %>
 
           <a

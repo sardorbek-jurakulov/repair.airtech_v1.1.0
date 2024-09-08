@@ -33,10 +33,9 @@ CREATE TABLE registration_numbers_of_aircraft (
   registration_number VARCHAR(50) NOT NULL
 );
 
-INSERT INTO types_of_aircraft (
-  types_of_aircraft_id
+INSERT INTO registration_numbers_of_aircraft (
+  types_of_aircraft_id,
   registration_number
-  customer_type_id
   )
 VALUES
   (1, 'UK78701')
@@ -59,15 +58,17 @@ VALUES
 
 CREATE TABLE servicing (
   id BIGSERIAL NOT NULL PRIMARY KEY,
-  types_of_aircraft_id BIGINT REFERENCES types_of_aircraft(id)
+  types_of_aircraft_id BIGINT REFERENCES types_of_aircraft(id),
   registration_numbers_of_aircraft_id BIGINT REFERENCES registration_numbers_of_aircraft(id),
   service_starting_date DATE NOT NULL,
   servicing_status VARCHAR(20) NOT NULL DEFAULT 'in process',
-  service_completing_date DATE,
+  service_completing_date DATE
 );
 -- service_status: 'in process' / 'completed'
 -- TODO service'ni boshlanish vaqtini hozirgi vaqtdan oldingi vaqtni qabul qilib bo'lmaydigan qilish kerak
 -- TODO service'ni tugash vaqtini service'ni boshlanish vaqtidan oldingi qiymatlarni qabul qilmaydigan qilib qo'yish kerak.
+
+
 
 
 --------------------------------- SPARES TABLE QUERIES ---------------------------------
