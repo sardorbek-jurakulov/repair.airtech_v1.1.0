@@ -16,12 +16,12 @@ INSERT INTO types_of_aircraft (
   type_name
   )
 VALUES
-  ('Boeing787-8'),
-  ('Boeing787-8P'),
   ('Boeing757-200'),
   ('Boeing757-23P'),
   ('Boeing767-300'),
   ('Boeing767-33P'),
+  ('Boeing787-8'),
+  ('Boeing787-8P'),
   ('A320-214'),
   ('A320-000'),
   ('A320-NEO')
@@ -38,7 +38,23 @@ INSERT INTO registration_numbers_of_aircraft (
   registration_number
   )
 VALUES
-  (1, 'UK78701')
+  (1, 'UK75701'),
+  (1, 'UK75702'),
+  (1, 'UK75703'),
+  (1, 'UK75704'),
+  (1, 'UK75705'),
+  (2, 'UK75700'),
+  (3, 'UK67001'),
+  (3, 'UK67002'),
+  (3, 'UK67002'),
+  (5, 'UK78701'),
+  (5, 'UK78702'),
+  (5, 'UK78703'),
+  (5, 'UK78704'),
+  (5, 'UK78705'),
+  (5, 'UK78706'),
+  (6, 'UK001'),
+  (6, 'UK001'),
 ;
 
 CREATE TABLE customer_type (
@@ -56,10 +72,26 @@ VALUES
   ('Somon Air')
 ;
 
+CREATE TABLE checking_types_of (
+  id BIGSERIAL NOT NULL PRIMARY KEY,
+  checking_name VARCHAR(50) NOT NULL
+);
+
+INSERT INTO customer_type (
+  checking_name
+  )
+VALUES
+  ( 'A check' ),
+  ('B check'),
+  ('B check'),
+  ('Somon Air')
+;
+
 CREATE TABLE servicing (
   id BIGSERIAL NOT NULL PRIMARY KEY,
   types_of_aircraft_id BIGINT REFERENCES types_of_aircraft(id),
   registration_numbers_of_aircraft_id BIGINT REFERENCES registration_numbers_of_aircraft(id),
+  checking_type_id
   service_starting_date DATE NOT NULL,
   servicing_status VARCHAR(20) NOT NULL DEFAULT 'in process',
   service_completing_date DATE
