@@ -130,13 +130,26 @@ VALUES
   ('C check')
 ;
 
+CREATE TABLE service_status_types (
+  service_status_type_id BIGSERIAL NOT NULL PRIMARY KEY,
+  service_status_type_name VARCHAR(255) NOT NULL
+);
+
+INSERT INTO service_status_types (
+  service_status_type_name
+  )
+VALUES
+  ('in process'),
+  ('completed')
+;
+
 CREATE TABLE servicing (
   id BIGSERIAL NOT NULL PRIMARY KEY,
   types_of_aircraft_id BIGINT REFERENCES types_of_aircraft(id),
   registration_numbers_of_aircraft_id BIGINT REFERENCES registration_numbers_of_aircraft(id),
   aircraft_checking_types_id BIGINT REFERENCES aircraft_checking_types(id),
   service_starting_date DATE NOT NULL,
-  servicing_status VARCHAR(20) NOT NULL DEFAULT 'in process',
+  service_status_type_id BIGINT NOT NULL REFERENCES service_status_types(service_status_type_id),
   service_completing_date DATE
 );
 -- service_status: 'in process' / 'completed'
@@ -260,7 +273,7 @@ CREATE TABLE users (
   user_password VARCHAR(255) NOT NULL,
   user_table_number NUMERIC NOT NULL,
   user_role_type_id BIGINT NOT NULL REFERENCES user_role_types(user_role_type_id),
-  user_profile_activness_type_id BIGINT NOT NULL REFERENCES user_profile_activness_types(user_profile_activness_type_id),
+  user_profile_activness_type_id BIGINT NOT NULL REFERENCES user_profile_activness_types,(user_profile_activness_type_id),
   info_created_date  TIMESTAMP(0) NOT NULL DEFAULT CURRENT_TIMESTAMP,
   info_created_user_login VARCHAR(50) NOT NULL,
   info_updated_date TIMESTAMP(0) NOT NULL DEFAULT CURRENT_TIMESTAMP,
