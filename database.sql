@@ -114,7 +114,7 @@ INSERT INTO customer_names (
 VALUES
   (1, 'Uzbekistan Airways' ),
   (2, 'Silk Avia'),
-  (2, 'Qanoqshart'),
+  (2, 'Qanotshart'),
   (2, 'Somon Air')
 ;
 
@@ -145,6 +145,22 @@ VALUES
   ('completed')
 ;
 
+CREATE TABLE material_availability_status (
+  material_availability_status_id BIGSERIAL NOT NULL PRIMARY KEY,
+  material_availability_status_name VARCHAR(255) NOT NULL
+);
+
+INSERT INTO material_availability_status (
+  material_availability_status_name
+  )
+VALUES
+  ('available'),
+  ('ordered'),
+  ('delivered'),
+;
+
+
+
 CREATE TABLE servicing (
   id BIGSERIAL NOT NULL PRIMARY KEY,
   types_of_aircraft_id BIGINT REFERENCES types_of_aircraft(id),
@@ -163,10 +179,18 @@ CREATE TABLE units (
   unit_name VARCHAR(255) NOT NULL
 );
 
-CREATE TABLE units (
-  unit_id BIGSERIAL NOT NULL PRIMARY KEY,
-  unit_name VARCHAR(255) NOT NULL
-);
+INSERT INTO units (
+  unit_name
+  )
+VALUES
+  ('MU'),
+  ('CAL'),
+  ('EA'),
+  ('KG'),
+  ('LI'),
+  ('ME'),
+  ('KIT'),
+;
 
 CREATE TABLE orders_for_aviation_technical_equipment_required_by_regulatory_documents (
   order_id BIGSERIAL NOT NULL PRIMARY KEY,
