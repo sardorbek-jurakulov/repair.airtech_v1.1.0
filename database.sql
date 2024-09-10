@@ -103,11 +103,11 @@ VALUES
 
 CREATE TABLE customers (
   customer_id BIGSERIAL NOT NULL PRIMARY KEY,
-  customer_type_id BIGINT NOT NULL REFERENCES customers_types(customer_type_id),
-  customer_name VARCHAR(255) NOT NULL,
+  customer_type_id BIGINT NOT NULL REFERENCES customer_types(customer_type_id),
+  customer_name VARCHAR(255) NOT NULL
 );
 
-INSERT INTO customer_names (
+INSERT INTO customers (
   customer_type_id,
   customer_name
   )
@@ -124,7 +124,7 @@ CREATE TABLE aircraft_checking_types (
 );
 
 INSERT INTO aircraft_checking_types (
-  checking_type_name
+  aircraft_checking_type_name
   )
 VALUES
   ('A check'),
@@ -147,15 +147,14 @@ VALUES
 
 CREATE TABLE servicing (
   servicing_id BIGSERIAL NOT NULL PRIMARY KEY,
-  customer_name_id BIGINT REFERENCES customer_names(customer_name_id),
+  customer_id BIGINT REFERENCES customers(customer_id),
   aircraft_type_id BIGINT REFERENCES aircraft_types(aircraft_type_id),
   aircraft_registration_number_id BIGINT REFERENCES aircraft_registration_numbers(aircraft_registration_number_id),
-  aircraft_checking_types_id BIGINT REFERENCES aircraft_checking_types(aircraft_checking_types_id),
+  aircraft_checking_type_id BIGINT REFERENCES aircraft_checking_types(aircraft_checking_type_id),
   service_starting_date DATE NOT NULL,
   servicing_status_type_id BIGINT NOT NULL REFERENCES servicing_status_types(servicing_status_type_id),
   service_completing_date DATE
 );
--- service_status: 'in process' / 'completed'
 -- TODO service'ni boshlanish vaqtini hozirgi vaqtdan oldingi vaqtni qabul qilib bo'lmaydigan qilish kerak
 -- TODO service'ni tugash vaqtini service'ni boshlanish vaqtidan oldingi qiymatlarni qabul qilmaydigan qilib qo'yish kerak.
 
@@ -190,19 +189,8 @@ VALUES
   ('KG'),
   ('LI'),
   ('ME'),
-  ('KIT'),
+  ('KIT')
 ;
-
-CREATE TABLE orders_for_aviation_technical_equipment (
-  order_id BIGSERIAL NOT NULL PRIMARY KEY,
-  regulatory_documents_number_for_maintenance VARCHAR(255) NOT NULL,
-  description VARCHAR(255) NOT NULL,
-  part_number_id BIGINT REFERENCES part_numbers(part_number_id),
-  unit_id BIGINT REFERENCES units(unit_id),
-  material_availability_status_id BIGINT REFERENCES material_availability_status(material_availability_status_id),
-  location VARCHAR(255),
-);
--- database alternative name = orders_for_aviation_technical_equipment_required_by_regulatory_documents
 
 CREATE TABLE material_availability_status (
   material_availability_status_id BIGSERIAL NOT NULL PRIMARY KEY,
@@ -216,8 +204,19 @@ VALUES
   ('absent'),
   ('available'),
   ('ordered'),
-  ('delivered'),
+  ('delivered')
 ;
+
+CREATE TABLE orders_for_aviation_technical_equipment (
+  order_id BIGSERIAL NOT NULL PRIMARY KEY,
+  regulatory_documents_number_for_maintenance VARCHAR(255) NOT NULL,
+  description VARCHAR(255) NOT NULL,
+  part_number_id BIGINT REFERENCES part_numbers(part_number_id),
+  unit_id BIGINT REFERENCES units(unit_id),
+  material_availability_status_id BIGINT REFERENCES material_availability_status(material_availability_status_id),
+  location VARCHAR(255)
+);
+-- database alternative name = orders_for_aviation_technical_equipment_required_by_regulatory_documents
 
 
 ------------------------------ REQUEST STATUS TABLE QUERIES ---------------------------
@@ -251,8 +250,6 @@ CREATE TABLE staff (
 );
 
 
-
-
 CREATE TABLE request_status (
   request_status_id BIGSERIAL NOT NULL PRIMARY KEY,
   request_number VARCHAR(255) NOT NULL,
@@ -277,6 +274,7 @@ CREATE TABLE request_status (
 ------------------------------ TECHNICAL ENGINEERING STAFF ORDER JOUTNAL TABLE QUERIES ---------------------------
 
 CREATE TABLE technical_engineering_staff_order_journal (
+  technical_engineering_staff_order_journal_id BIGSERIAL NOT NULL PRIMARY KEY,
   date DATE NOT NULL,
   description VARCHAR(255) NOT NULL,
   part_number_id BIGINT REFERENCES part_numbers(part_number_id),
@@ -285,20 +283,14 @@ CREATE TABLE technical_engineering_staff_order_journal (
   customer_name VARCHAR(255) NOT NULL,
   customer_table_number VARCHAR(10) NOT NULL,
   delivery_table_number VARCHAR(10) NOT NULL,
-  aircraft_registration_number_id BIGINT REFERENCES aircraft_registration_numbers(aircraft_registration_number_id),
+  aircraft_registration_number_id BIGINT REFERENCES aircraft_registration_numbers(aircraft_registration_number_id)
 );
 
---------------------------------- SPARES TABLE QUERIES ---------------------------------
-CREATE TABLE spares (
+--------------------------------- PICKING TABLE QUERIES ---------------------------------
+CREATE TABLE picking (
+  picking_id BIGSERIAL NOT NULL PRIMARY KEY,
   demand_number VARCHAR(100) NOT NULL,
   date_dd DATE NOT NULL,
-  description VARCHAR(300) NOT NULL,
-  part_number VARCHAR(100) NOT NULL,
-  material_type VARCHAR(100) NOT NULL,
-  ordered_qty NUMERIC NOT NULL,
-  unit VARCHAR(10) NOT NULL,
-  reference_to VARCHAR(100) NOT NULL,
-  requested_by VARCHAR(30) NOT NULL,
   engineer_passed VARCHAR(30) NOT NULL,
   accepted_by_store_keeper VARCHAR(30) NOT NULL,
   date_of_receipt DATE NOT NULL,
@@ -308,85 +300,34 @@ CREATE TABLE spares (
   issued_on_board_number VARCHAR(30) NOT NULL,
   passed NUMERIC NOT NULL,
   quantity_of_balance NUMERIC NOT NULL,
-  rack_number VARCHAR(20) NOT NULL,
-  spare_usage_status VARCHAR(30) NOT NULL DEFAULT 'installed to airplane',
-  info_created_date TIMESTAMP(0) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  info_created_username VARCHAR(50) NOT NULL,
-  info_updated_date TIMESTAMP(0) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  info_updated_username VARCHAR(50) NOT NULL
-);
--- spare_usage_status 'installed to airplane' / 'taken back from airplane'
-
-INSERT INTO spares (
-  airplane_id,
-  demand_number,
-  date_dd,
-  description,
-  part_number,
-  material_type,
-  ordered_qty,
-  unit,
-  reference_to,
-  requested_by,
-  engineer_passed,
-  accepted_by_store_keeper,
-  date_of_receipt,
-  quantity_of_goods_and_materials_receipt,
-  expiration_date,
-  picked_up_by,
-  issued_on_board_number,
-  passed,
-  quantity_of_balance,
-  rack_number
-  )
-VALUES (
-  1,
-  'BNGc/00489',
-  '01.03.2023',
-  'BOLT',
-  'EN6115-3-6',
-  'CONSUMABLE',
-  1.00,
-  'EA',
-  'NRC#U231284',
-  'IVANOV S.',
-  'SAMATOV D.',
-  'ZIMAKINA O.',
-  '01.03.2023',
-  1.00,
-  'N/A',
-  'IVANOV S.',
-  'UK32020',
-  1.00,
-  0.00,
-  '1/1'
+  rack_number VARCHAR(20) NOT NULL
 );
 
 
 --------------------------------- USERS TABLE QUERIES ---------------------------------
 CREATE TABLE user_role_types (
   user_role_type_id BIGSERIAL NOT NULL PRIMARY KEY,
-  user_role_type_name VARCHAR(255) NOT NULL,
+  user_role_type_name VARCHAR(255) NOT NULL
 );
 
 INSERT INTO user_role_types (
-  user_role_type_name,
+  user_role_type_name
   )
 VALUES
-  ('super-administrator')
+  ('super-administrator'),
   ('administrator'),
   ('engineering-staff'),
   ('technical-staff'),
-  ('picking-staff'),
+  ('picking-staff')
 ;
 
 CREATE TABLE user_profile_activness_types (
   user_profile_activness_type_id BIGSERIAL NOT NULL PRIMARY KEY,
-  user_profile_activness_type_name VARCHAR(255) NOT NULL,
+  user_profile_activness_type_name VARCHAR(255) NOT NULL
 );
 
 INSERT INTO user_profile_activness_types (
-  user_profile_activness_type_name,
+  user_profile_activness_type_name
   )
 VALUES
   ('active'),
@@ -400,7 +341,7 @@ CREATE TABLE users (
   user_password VARCHAR(255) NOT NULL,
   user_table_number NUMERIC NOT NULL,
   user_role_type_id BIGINT NOT NULL REFERENCES user_role_types(user_role_type_id),
-  user_profile_activness_type_id BIGINT NOT NULL REFERENCES user_profile_activness_types,(user_profile_activness_type_id),
+  user_profile_activness_type_id BIGINT NOT NULL REFERENCES user_profile_activness_types(user_profile_activness_type_id),
   info_created_date  TIMESTAMP(0) NOT NULL DEFAULT CURRENT_TIMESTAMP,
   info_created_user_login VARCHAR(50) NOT NULL,
   info_updated_date TIMESTAMP(0) NOT NULL DEFAULT CURRENT_TIMESTAMP,
