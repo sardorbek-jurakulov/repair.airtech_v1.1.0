@@ -101,19 +101,21 @@ VALUES
   ('private airline')
 ;
 
-CREATE TABLE customer_names (
-  customer_name_id BIGSERIAL NOT NULL PRIMARY KEY,
-  customer_name VARCHAR(255) NOT NULL
+CREATE TABLE customers (
+  customer_id BIGSERIAL NOT NULL PRIMARY KEY,
+  customer_type_id BIGINT NOT NULL REFERENCES customers_types(customer_type_id),
+  customer_name VARCHAR(255) NOT NULL,
 );
 
 INSERT INTO customer_names (
+  customer_type_id,
   customer_name
   )
 VALUES
-  ('Uzbekistan Airways' ),
-  ('Silk Avia'),
-  ('Qanoqshart'),
-  ('Somon Air')
+  (1, 'Uzbekistan Airways' ),
+  (2, 'Silk Avia'),
+  (2, 'Qanoqshart'),
+  (2, 'Somon Air')
 ;
 
 CREATE TABLE aircraft_checking_types (
@@ -155,6 +157,24 @@ CREATE TABLE servicing (
 -- service_status: 'in process' / 'completed'
 -- TODO service'ni boshlanish vaqtini hozirgi vaqtdan oldingi vaqtni qabul qilib bo'lmaydigan qilish kerak
 -- TODO service'ni tugash vaqtini service'ni boshlanish vaqtidan oldingi qiymatlarni qabul qilmaydigan qilib qo'yish kerak.
+
+CREATE TABLE units (
+  unit_id BIGSERIAL NOT NULL PRIMARY KEY,
+  unit_name VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE units (
+  unit_id BIGSERIAL NOT NULL PRIMARY KEY,
+  unit_name VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE orders_for_aviation_technical_equipment_required_by_regulatory_documents (
+  order_id BIGSERIAL NOT NULL PRIMARY KEY,
+  regulatory_documents_number_for_maintenance VARCHAR(255) NOT NULL,
+  description VARCHAR(255) NOT NULL,
+  part_number VARCHAR(255) NOT NULL,
+  unit VARCHAR(255)
+);
 
 
 
