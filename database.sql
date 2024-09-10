@@ -5,7 +5,7 @@ SHOW TIMEZONE;
 ------------------------------- DATABASE CREATING QUERIES -------------------------------
 CREATE DATABASE repair_airtech;
 
-------------------------------- AIRPLANES TABLE QUERIES -------------------------------
+--------------------------------- SERVICING TABLE QUERIES -------------------------------
 
 CREATE TABLE aircraft_types (
   aircraft_type_id BIGSERIAL NOT NULL PRIMARY KEY,
@@ -132,47 +132,48 @@ VALUES
   ('C check')
 ;
 
-CREATE TABLE service_status_types (
-  service_status_type_id BIGSERIAL NOT NULL PRIMARY KEY,
-  service_status_type_name VARCHAR(255) NOT NULL
+CREATE TABLE servicing_status_types (
+  servicing_status_type_id BIGSERIAL NOT NULL PRIMARY KEY,
+  servicing_status_type_name VARCHAR(255) NOT NULL
 );
 
-INSERT INTO service_status_types (
-  service_status_type_name
+INSERT INTO servicing_status_types (
+  servicing_status_type_name
   )
 VALUES
   ('in process'),
   ('completed')
 ;
 
-CREATE TABLE material_availability_status (
-  material_availability_status_id BIGSERIAL NOT NULL PRIMARY KEY,
-  material_availability_status_name VARCHAR(255) NOT NULL
-);
-
-INSERT INTO material_availability_status (
-  material_availability_status_name
-  )
-VALUES
-  ('available'),
-  ('ordered'),
-  ('delivered'),
-;
-
-
-
 CREATE TABLE servicing (
-  id BIGSERIAL NOT NULL PRIMARY KEY,
-  types_of_aircraft_id BIGINT REFERENCES types_of_aircraft(id),
-  registration_numbers_of_aircraft_id BIGINT REFERENCES registration_numbers_of_aircraft(id),
-  aircraft_checking_types_id BIGINT REFERENCES aircraft_checking_types(id),
+  servicing_id BIGSERIAL NOT NULL PRIMARY KEY,
+  customer_name_id BIGINT REFERENCES customer_names(customer_name_id),
+  aircraft_type_id BIGINT REFERENCES aircraft_types(aircraft_type_id),
+  aircraft_registration_number_id BIGINT REFERENCES aircraft_registration_numbers(aircraft_registration_number_id),
+  aircraft_checking_types_id BIGINT REFERENCES aircraft_checking_types(aircraft_checking_types_id),
   service_starting_date DATE NOT NULL,
-  service_status_type_id BIGINT NOT NULL REFERENCES service_status_types(service_status_type_id),
+  servicing_status_type_id BIGINT NOT NULL REFERENCES servicing_status_types(servicing_status_type_id),
   service_completing_date DATE
 );
 -- service_status: 'in process' / 'completed'
 -- TODO service'ni boshlanish vaqtini hozirgi vaqtdan oldingi vaqtni qabul qilib bo'lmaydigan qilish kerak
 -- TODO service'ni tugash vaqtini service'ni boshlanish vaqtidan oldingi qiymatlarni qabul qilmaydigan qilib qo'yish kerak.
+
+
+--------------------------------- SERVICING TABLE QUERIES -------------------------------
+CREATE TABLE part_numbers (
+  part_number_id BIGSERIAL NOT NULL PRIMARY KEY,
+  part_number VARCHAR(255) NOT NULL
+);
+
+INSERT INTO part_numbers (
+  part_number
+  )
+VALUES
+  ('D1121001420200'),
+  ('D1121001320800'),
+  ('D1121005920200')
+;
 
 CREATE TABLE units (
   unit_id BIGSERIAL NOT NULL PRIMARY KEY,
@@ -192,13 +193,28 @@ VALUES
   ('KIT'),
 ;
 
-CREATE TABLE orders_for_aviation_technical_equipment_required_by_regulatory_documents (
+CREATE TABLE orders_for_aviation_technical_equipment (
   order_id BIGSERIAL NOT NULL PRIMARY KEY,
   regulatory_documents_number_for_maintenance VARCHAR(255) NOT NULL,
   description VARCHAR(255) NOT NULL,
-  part_number VARCHAR(255) NOT NULL,
+  part_number_id BIGINT REFERENCES part_numbers(part_number_id),
   unit VARCHAR(255)
 );
+-- database alternative name = orders_for_aviation_technical_equipment_required_by_regulatory_documents
+
+CREATE TABLE material_availability_status (
+  material_availability_status_id BIGSERIAL NOT NULL PRIMARY KEY,
+  material_availability_status_name VARCHAR(255) NOT NULL
+);
+
+INSERT INTO material_availability_status (
+  material_availability_status_name
+  )
+VALUES
+  ('available'),
+  ('ordered'),
+  ('delivered'),
+;
 
 
 
