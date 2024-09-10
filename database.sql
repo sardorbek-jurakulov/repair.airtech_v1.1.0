@@ -85,7 +85,7 @@ VALUES
   (9, 'UK32026'),
   (9, 'UK32027'),
   (9, 'UK32029'),
-  (9, 'UK32040'),
+  (9, 'UK32040')
 ;
 
 CREATE TABLE customer_type (
