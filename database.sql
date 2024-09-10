@@ -160,7 +160,7 @@ CREATE TABLE servicing (
 -- TODO service'ni tugash vaqtini service'ni boshlanish vaqtidan oldingi qiymatlarni qabul qilmaydigan qilib qo'yish kerak.
 
 
---------------------------------- SERVICING TABLE QUERIES -------------------------------
+------------------ Orders for aviation technical equipment required by regulatory documents TABLE QUERIES ----------------
 CREATE TABLE part_numbers (
   part_number_id BIGSERIAL NOT NULL PRIMARY KEY,
   part_number VARCHAR(255) NOT NULL
@@ -198,7 +198,8 @@ CREATE TABLE orders_for_aviation_technical_equipment (
   regulatory_documents_number_for_maintenance VARCHAR(255) NOT NULL,
   description VARCHAR(255) NOT NULL,
   part_number_id BIGINT REFERENCES part_numbers(part_number_id),
-  unit VARCHAR(255)
+  unit_id BIGINT REFERENCES units(unit_id),
+  location VARCHAR(255) NOT NULL
 );
 -- database alternative name = orders_for_aviation_technical_equipment_required_by_regulatory_documents
 
