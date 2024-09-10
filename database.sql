@@ -149,7 +149,7 @@ CREATE TABLE servicing (
 --------------------------------- SPARES TABLE QUERIES ---------------------------------
 CREATE TABLE spares (
   id BIGSERIAL NOT NULL PRIMARY KEY,
-  airplane_id BIGINT REFERENCES airplanes(id),
+  airplane_id BIGINT NOT NULL REFERENCES airplanes(id),
   demand_number VARCHAR(100) NOT NULL,
   date_dd DATE NOT NULL,
   description VARCHAR(300) NOT NULL,
@@ -224,6 +224,51 @@ VALUES (
 
 
 --------------------------------- USERS TABLE QUERIES ---------------------------------
+CREATE TABLE user_role_types (
+  user_role_type_id BIGSERIAL NOT NULL PRIMARY KEY,
+  user_role_type_name VARCHAR(255) NOT NULL,
+);
+
+INSERT INTO user_role_types (
+  user_role_type_name,
+  )
+VALUES
+  ('super-administrator')
+  ('administrator'),
+  ('engineering-staff'),
+  ('technical-staff'),
+  ('picking-staff'),
+;
+
+CREATE TABLE user_profile_activness_types (
+  user_profile_activness_type_id BIGSERIAL NOT NULL PRIMARY KEY,
+  user_profile_activness_type_name VARCHAR(255) NOT NULL,
+);
+
+INSERT INTO user_profile_activness_types (
+  user_profile_activness_type_name,
+  )
+VALUES
+  ('active'),
+  ('not active')
+;
+
+CREATE TABLE users (
+  user_id BIGSERIAL NOT NULL PRIMARY KEY,
+  user_full_name VARCHAR(100) NOT NULL,
+  user_login VARCHAR(50) NOT NULL,
+  user_password VARCHAR(255) NOT NULL,
+  user_table_number NUMERIC NOT NULL,
+  user_role_type_id BIGINT NOT NULL REFERENCES user_role_types(user_role_type_id),
+  user_profile_activness_type_id BIGINT NOT NULL REFERENCES user_profile_activness_types(user_profile_activness_type_id),
+  info_created_date  TIMESTAMP(0) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  info_created_user_login VARCHAR(50) NOT NULL,
+  info_updated_date TIMESTAMP(0) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  info_updated_user_login VARCHAR(50) NOT NULL
+);
+-- user_profile_activeness = active / not active
+-- user_role
+
 CREATE TABLE users (
   id BIGSERIAL NOT NULL PRIMARY KEY,
   full_name VARCHAR(100) NOT NULL,
