@@ -103,11 +103,11 @@ VALUES
 
 CREATE TABLE customer_names (
   customer_name_id BIGSERIAL NOT NULL PRIMARY KEY,
-  customer_names VARCHAR(255) NOT NULL
+  customer_name VARCHAR(255) NOT NULL
 );
 
-INSERT INTO customers_name (
-  type_name
+INSERT INTO customer_names (
+  customer_name
   )
 VALUES
   ('Uzbekistan Airways' ),
@@ -117,8 +117,8 @@ VALUES
 ;
 
 CREATE TABLE aircraft_checking_types (
-  id BIGSERIAL NOT NULL PRIMARY KEY,
-  checking_type_name VARCHAR(50) NOT NULL
+  aircraft_checking_type_id BIGSERIAL NOT NULL PRIMARY KEY,
+  aircraft_checking_type_name VARCHAR(255) NOT NULL
 );
 
 INSERT INTO aircraft_checking_types (
