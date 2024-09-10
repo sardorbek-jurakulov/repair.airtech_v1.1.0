@@ -160,7 +160,7 @@ CREATE TABLE servicing (
 -- TODO service'ni tugash vaqtini service'ni boshlanish vaqtidan oldingi qiymatlarni qabul qilmaydigan qilib qo'yish kerak.
 
 
------------------- Orders for aviation technical equipment required by regulatory documents TABLE QUERIES ----------------
+------------------ ORDERS FOR AVIATION TECHNICAL EQUIPMENT REQUIRED BY REGULATORY DOCUMENTS TABLE QUERIES ----------------
 CREATE TABLE part_numbers (
   part_number_id BIGSERIAL NOT NULL PRIMARY KEY,
   part_number VARCHAR(255) NOT NULL
@@ -220,7 +220,38 @@ VALUES
 ;
 
 
------------------- Orders for aviation technical equipment required by regulatory documents TABLE QUERIES ----------------
+------------------------------ REQUEST STATUS TABLE QUERIES ---------------------------
+
+CREATE TABLE material_types (
+  material_type_id BIGSERIAL NOT NULL PRIMARY KEY,
+  material_type_name VARCHAR(255)
+);
+
+INSERT INTO material_types (
+  material_type_name
+  )
+VALUES
+  ('POOL')
+;
+
+CREATE TABLE departments (
+  department_id BIGSERIAL NOT NULL PRIMARY KEY,
+  department_name VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE positions (
+  position_id BIGSERIAL NOT NULL PRIMARY KEY,
+  position_name VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE staff (
+  staff_id BIGSERIAL NOT NULL PRIMARY KEY,
+  staf_fullname VARCHAR(255) NOT NULL,
+  staff_table_number NUMERIC NOT NULL
+);
+
+
+
 
 CREATE TABLE request_status (
   request_status_id BIGSERIAL NOT NULL PRIMARY KEY,
@@ -228,10 +259,34 @@ CREATE TABLE request_status (
   description VARCHAR(255) NOT NULL,
   ordered_part_number VARCHAR(255) NOT NULL,
   shipping_part_number VARCHAR(255) NOT NULL,
-
+  material_type_id BIGINT REFERENCES material_types(material_type_id),
+  ordered_qty NUMERIC NOT NULL,
+  unit_id BIGINT REFERENCES units(unit_id),
+  ips_ref VARCHAR(255) NOT NULL,
+  date_of_req DATE NOT NULL,
+  status VARCHAR(255) NOT NULL,
+  reference_to VARCHAR(255) NOT NULL,
+  requested_by VARCHAR(100) NOT NULL,
+  awb_number VARCHAR(100) NOT NULL,
+  date_of_delivery_from_supplier VARCHAR(100) NOT NULL,
+  date_in_tas VARCHAR(100),
+  fact_status VARCHAR(100) NOT NULL
 );
 
 
+------------------------------ TECHNICAL ENGINEERING STAFF ORDER JOUTNAL TABLE QUERIES ---------------------------
+
+CREATE TABLE technical_engineering_staff_order_journal (
+  date DATE NOT NULL,
+  description VARCHAR(255) NOT NULL,
+  part_number_id BIGINT REFERENCES part_numbers(part_number_id),
+  quantity NUMERIC NOT NULL,
+  unit_id BIGINT REFERENCES units(unit_id),
+  customer_name VARCHAR(255) NOT NULL,
+  customer_table_number VARCHAR(10) NOT NULL,
+  delivery_table_number VARCHAR(10) NOT NULL,
+  aircraft_registration_number_id BIGINT REFERENCES aircraft_registration_numbers(aircraft_registration_number_id),
+);
 
 --------------------------------- SPARES TABLE QUERIES ---------------------------------
 CREATE TABLE spares (
