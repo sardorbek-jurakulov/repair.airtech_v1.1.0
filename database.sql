@@ -199,7 +199,8 @@ CREATE TABLE orders_for_aviation_technical_equipment (
   description VARCHAR(255) NOT NULL,
   part_number_id BIGINT REFERENCES part_numbers(part_number_id),
   unit_id BIGINT REFERENCES units(unit_id),
-  location VARCHAR(255) NOT NULL
+  material_availability_status_id BIGINT REFERENCES material_availability_status(material_availability_status_id),
+  location VARCHAR(255),
 );
 -- database alternative name = orders_for_aviation_technical_equipment_required_by_regulatory_documents
 
@@ -212,11 +213,23 @@ INSERT INTO material_availability_status (
   material_availability_status_name
   )
 VALUES
+  ('absent'),
   ('available'),
   ('ordered'),
   ('delivered'),
 ;
 
+
+------------------ Orders for aviation technical equipment required by regulatory documents TABLE QUERIES ----------------
+
+CREATE TABLE request_status (
+  request_status_id BIGSERIAL NOT NULL PRIMARY KEY,
+  request_number VARCHAR(255) NOT NULL,
+  description VARCHAR(255) NOT NULL,
+  ordered_part_number VARCHAR(255) NOT NULL,
+  shipping_part_number VARCHAR(255) NOT NULL,
+
+);
 
 
 
