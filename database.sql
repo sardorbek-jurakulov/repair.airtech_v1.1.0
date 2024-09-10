@@ -7,13 +7,13 @@ CREATE DATABASE repair_airtech;
 
 ------------------------------- AIRPLANES TABLE QUERIES -------------------------------
 
-CREATE TABLE types_of_aircraft (
-  id BIGSERIAL NOT NULL PRIMARY KEY,
-  type_name VARCHAR(50) NOT NULL UNIQUE
+CREATE TABLE aircraft_types (
+  aircraft_type_id BIGSERIAL NOT NULL PRIMARY KEY,
+  aircraft_type_name VARCHAR(50) NOT NULL UNIQUE
 );
 
-INSERT INTO types_of_aircraft (
-  type_name
+INSERT INTO aircraft_types (
+  aircraft_type_name
   )
 VALUES
   ('Boeing757-200'),
@@ -27,15 +27,15 @@ VALUES
   ('A320-NEO')
 ;
 
-CREATE TABLE registration_numbers_of_aircraft (
-  id BIGSERIAL NOT NULL PRIMARY KEY,
-  types_of_aircraft_id BIGINT REFERENCES types_of_aircraft(id),
-  registration_number VARCHAR(50) NOT NULL
+CREATE TABLE aircraft_registration_numbers (
+  aircraft_registration_number_id BIGSERIAL NOT NULL PRIMARY KEY,
+  aircraft_type_id BIGINT REFERENCES aircraft_types(aircraft_type_id) NOT NULL,
+  aircraft_registration_number VARCHAR(50) NOT NULL
 );
 
-INSERT INTO registration_numbers_of_aircraft (
-  types_of_aircraft_id,
-  registration_number
+INSERT INTO aircraft_registration_numbers (
+  aircraft_type_id,
+  aircraft_registration_number
   )
 VALUES
   (1, 'UK75701'),
@@ -88,41 +88,53 @@ VALUES
   (9, 'UK32040')
 ;
 
-CREATE TABLE customer_type (
-  id BIGSERIAL NOT NULL PRIMARY KEY,
-  type_name VARCHAR(50) NOT NULL
+CREATE TABLE customer_types (
+  customer_type_id BIGSERIAL NOT NULL PRIMARY KEY,
+  customer_type_name VARCHAR(50) NOT NULL
 );
 
-INSERT INTO customer_type (
+INSERT INTO customer_types (
+  customer_type_name
+  )
+VALUES
+  ('government airline' ),
+  ('private airline')
+;
+
+CREATE TABLE customer_names (
+  customer_name_id BIGSERIAL NOT NULL PRIMARY KEY,
+  customer_names VARCHAR(255) NOT NULL
+);
+
+INSERT INTO customers_name (
   type_name
   )
 VALUES
-  ( 'Uzbekistan Airways' ),
+  ('Uzbekistan Airways' ),
   ('Silk Avia'),
   ('Qanoqshart'),
   ('Somon Air')
 ;
 
-CREATE TABLE checking_types_of (
+CREATE TABLE aircraft_checking_types (
   id BIGSERIAL NOT NULL PRIMARY KEY,
-  checking_name VARCHAR(50) NOT NULL
+  checking_type_name VARCHAR(50) NOT NULL
 );
 
-INSERT INTO customer_type (
-  checking_name
+INSERT INTO aircraft_checking_types (
+  checking_type_name
   )
 VALUES
-  ( 'A check' ),
+  ('A check'),
   ('B check'),
-  ('B check'),
-  ('Somon Air')
+  ('C check')
 ;
 
 CREATE TABLE servicing (
   id BIGSERIAL NOT NULL PRIMARY KEY,
   types_of_aircraft_id BIGINT REFERENCES types_of_aircraft(id),
   registration_numbers_of_aircraft_id BIGINT REFERENCES registration_numbers_of_aircraft(id),
-  checking_type_id
+  aircraft_checking_types_id BIGINT REFERENCES aircraft_checking_types(id),
   service_starting_date DATE NOT NULL,
   servicing_status VARCHAR(20) NOT NULL DEFAULT 'in process',
   service_completing_date DATE
