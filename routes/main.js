@@ -29,29 +29,34 @@ let selectedLanguage = 'en';
 router.get('/login', async (req, res) => {
   res.render('login', {
       error_message: '',
-      username: '',
+      login: '',
       password: '',
       table_number: '',
       userTexts,
       selectedLanguage
     });
 });
+// TO DO change endpoint from login to signin.
+// TO DO render qilinadigan fayl nomini signin ga o'zgartirishimiz kk.
 
 
 /********************************** LOGIN *********************************/
 router.post('/login', async (req, res) => {
-  const { username, password, table_number } = req.body;
+  const { login, password, table_number } = req.body;
+  console.log("login: ", login, "/npassword: ", password, "tabel_number: ", table_number);
   try {
     const user = (await pool.query(`
       SELECT * FROM users
-      WHERE username = $1 AND table_number = $2;`,
+      WHERE user_login = $1 AND user_table_number = $2;`,
       [
-        username,
+        login,
         Number(table_number)
-      ])).rows[0];
+      ]
+    )).rows[0];
+    console.log(user);
     if (!user) {
       return res.render('login', {
-        error_message: "Username or table number was entered incorrectly. Check and enter again!",
+        error_message: userTexts.loginOrTableNumberEnteredIncorrectly[selectedLanguage],
         username,
         password,
         table_number,
@@ -59,9 +64,9 @@ router.post('/login', async (req, res) => {
         selectedLanguage
       });
     }
-    if (!(await bcrypt.compare(password, user.password))) {
+    if (!(await bcrypt.compare(password, user.user.password))) {
       return res.render('login', {
-        error_message: "Password was entered incorrectly. Check and enter again!",
+        error_message: userTexts.loginOrTableNumberEnteredIncorrectly[selectedLanguage],
         username,
         password,
         table_number,
@@ -69,7 +74,7 @@ router.post('/login', async (req, res) => {
         selectedLanguage
       });
     }
-    const accessToken = jwt.sign({userRole: user.role, userFullName: user.full_name, userUsername: user.username}, process.env.ACCESS_TOKEN_SECRET, {
+    const accessToken = jwt.sign({userRole: user.user_role_type_name, userFullName: user.user_full_name, userLogin: user.user_login}, process.env.ACCESS_TOKEN_SECRET, {
       expiresIn: '1d',
     });
     res.cookie("accessToken", accessToken, { maxAge: 1440 * 24 * 60 * 60, httpOnly: true });
@@ -77,7 +82,7 @@ router.post('/login', async (req, res) => {
   } catch (err) {
     return res.render('login', {
       error_message: `Log in failed. Reason is ${err.message}`,
-      username,
+      login,
       password,
       table_number,
       userTexts,
@@ -85,6 +90,7 @@ router.post('/login', async (req, res) => {
     });
   }
 });
+// TO DO change endpoint from login to signin
 
 
 /***************************** MODERATOR REJECT ACTION ****************************/
@@ -95,9 +101,10 @@ async function authCheck (req, res, next) {
   const jwtDecoded = jwtDecode(req.cookies.accessToken);
   req.userRole = jwtDecoded.userRole;
   req.userFullName = jwtDecoded.userFullName;
-  req.userUsername = jwtDecoded.userUsername;
+  req.userLogin = jwtDecoded.userLogin;
   next();
 }
+// TO DO redirect bo'ladigan endpoint qiymatini sign in ga almashtirish kk.
 
 
 /***************************** CHANGE LANGUAGE ****************************/
@@ -111,7 +118,7 @@ router.get('/', authCheck, (req, res) => {
   const currentUser = {
     role: req.userRole,
     full_name: req.userFullName,
-    username: req.userUsername
+    login: req.userLogin
   };
   res.render('index', {
     selectedSection: 'withoutSection',
@@ -128,7 +135,7 @@ router.get('/airplanes/:airplaneServiceStatus', authCheck, async (req, res, next
   const currentUser = {
     role: req.userRole,
     full_name: req.userFullName,
-    username: req.userUsername
+    login: req.userLogin
   };
   if (!(isNaN(req.params.airplaneServiceStatus))) {
     next();
@@ -181,7 +188,7 @@ async function getOneAirplane(req, res, next, actionStatus = '', actionMessage =
   const currentUser = {
     role: req.userRole,
     full_name: req.userFullName,
-    username: req.userUsername
+    login: req.userLogin
   };
   if (isNaN(req.params.id)) {
     next();
@@ -518,7 +525,7 @@ router.get('/airplaneForm/:formFor/:airplaneId', authCheck, async (req, res) => 
   const currentUser = {
     role: req.userRole,
     full_name: req.userFullName,
-    username: req.userUsername
+    login: req.userLogin
   };
   if (currentUser.role !== 'admin' && currentUser.role !== 'moderator') {
     return res.redirect('/');
@@ -570,7 +577,7 @@ router.post('/repairingAirplanes', authCheck, async (req, res) => {
   const currentUser = {
     role: req.userRole,
     full_name: req.userFullName,
-    username: req.userUsername
+    login: req.userLogin
   };
   if (currentUser.role !== 'admin' && currentUser.role !== 'moderator') {
     return res.redirect('/');
@@ -695,7 +702,7 @@ router.get('/spareForm/:formFor/:airplaneId/:airplaneSerialNumber/:spareId', aut
   const currentUser = {
     role: req.userRole,
     full_name: req.userFullName,
-    username: req.userUsername
+    login: req.userLogin
   };
   if (currentUser.role !== 'admin' && currentUser.role !== 'moderator') {
     return res.redirect('/');
@@ -878,7 +885,7 @@ router.post('/spare', authCheck, async (req, res) => {
   const currentUser = {
     role: req.userRole,
     full_name: req.userFullName,
-    username: req.userUsername
+    login: req.userLogin
   };
   if (currentUser.role !== 'admin' && currentUser.role !== 'moderator') {
     return res.redirect('/');
@@ -1056,7 +1063,7 @@ async function getAllUsers(req, res, next, actionStatus = '', actionMessage = ''
   const currentUser = {
     role: req.userRole,
     full_name: req.userFullName,
-    username: req.userUsername
+    login: req.userLogin
   };
   if (currentUser.role !== 'admin') {
     return res.redirect('/')
@@ -1097,7 +1104,7 @@ router.get('/userForm/:formFor/:userId', authCheck, async (req, res, next) => {
   const currentUser = {
     role: req.userRole,
     full_name: req.userFullName,
-    username: req.userUsername
+    login: req.userLogin
   };
   if (currentUser.role !== 'admin') {
     return res.redirect('/')
@@ -1170,7 +1177,7 @@ router.post('/users', authCheck, async (req, res) => {
   const currentUser = {
     role: req.userRole,
     full_name: req.userFullName,
-    username: req.userUsername
+    login: req.userLogin
   };
   if (currentUser.role !== 'admin') {
     return res.redirect('/');

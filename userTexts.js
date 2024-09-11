@@ -139,8 +139,8 @@ const userTexts = {
     'en': 'Full name',
     'ru': 'Ф.И.О'
   },
-  userUsername: {
-    'en': 'Username',
+  userLogin: {
+    'en': 'User login',
     'ru': 'Логин пользователя'
   },
   password: {
@@ -350,6 +350,18 @@ const userTexts = {
   noInfoYetInThisSection: {
     'en': 'There are no information yet in this section',
     'ru': 'В этом разделе пока нет информации'
+  },
+  loginOrTableNumberEnteredIncorrectly: {
+    'en': 'Login or Table number has entered incorrectly. Check and enter again!',
+    'ru': 'Логин или Табельный номер введены неверно. Проверьте и введите снова!'
+  },
+  passwordEnteredIncorrectly: {
+    'en': 'Password has entered incorrectly. Check and enter again!',
+    'ru': 'Пароль введен неверно. Проверьте и введите снова!'
+  },
+  passwordEnteredIncorrectly: {
+    'en': 'Log in failed. Reason is ',
+    'ru': 'Не удалось войти. Причина в '
   }
 };
 

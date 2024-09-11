@@ -347,5 +347,28 @@ CREATE TABLE users (
   info_updated_date TIMESTAMP(0) NOT NULL DEFAULT CURRENT_TIMESTAMP,
   info_updated_user_login VARCHAR(50) NOT NULL
 );
--- user_profile_activeness = active / not active
--- user_role
+
+INSERT INTO users (
+  user_full_name,
+  user_login,
+  user_password,
+  user_table_number,
+  user_role_type_id,
+  user_profile_activness_type_id,
+  info_created_date,
+  info_created_user_login,
+  info_updated_date,
+  info_updated_user_login
+  )
+VALUES (
+  'Jo`raqulov Sardorbek Bahodir o`g`li',
+  'sjurakulov',
+  '$2a$12$9mH1tp.IzX5QgN310TsAPuhJQvuVnxjr1Rr9/2kxf/86ITU43CSeO',
+  5848,
+  1,
+  1,
+  CURRENT_TIMESTAMP,
+  'sjurakulov',
+  CURRENT_TIMESTAMP,
+  'sjurakulov'
+);
